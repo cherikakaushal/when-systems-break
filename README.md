@@ -11,9 +11,11 @@ Exploring how systems behave under imperfect conditions.
 - [Which features actually matter?](blogs/03-which-features-matter.md)
 - [Final insights](blogs/04-final-insights.md)
 
-- ## Key Takeaways
+## Project Goal
 
-- Models behave unpredictably under noise  
-- Missing data causes consistent degradation  
-- Not all features matter equally  
-- System reliability depends on data quality and feature importance  
+This project explores how machine learning systems behave under real-world imperfect data conditions.
+
+Rather than focusing only on performance, the goal is to understand:
+- how models fail
+- how data quality affects reliability
+- how system behavior changes under different types of imperfections
