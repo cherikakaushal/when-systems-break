@@ -19,3 +19,11 @@ Rather than focusing only on performance, the goal is to understand:
 - how models fail
 - how data quality affects reliability
 - how system behavior changes under different types of imperfections
+
+## Experiments Conducted
+
+1. Noise Injection  
+2. Missing Data Simulation  
+3. Feature Importance Analysis  
+
+Each experiment is designed to isolate a specific failure condition and observe system behavior.
