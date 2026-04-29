@@ -26,10 +26,10 @@ X_missing = X_test.copy()
 mask = np.random.rand(*X_missing.shape) < 0.1
 X_missing[mask] = np.nan
 
-# Fill missing values (simple strategy)
+# Fill missing values using mean
 X_filled = X_missing.fillna(X_missing.mean())
 
-# Test again
+# Evaluate
 missing_acc = accuracy_score(y_test, model.predict(X_filled))
 
 print("Baseline Accuracy:", baseline)
