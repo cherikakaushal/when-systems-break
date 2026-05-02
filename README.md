@@ -81,20 +81,6 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 
 ---
 
-## Structure
-
-
----
-
-## Tech Stack
-
-- Python  
-- NumPy, Pandas  
-- Scikit-learn  
-- Matplotlib  
-
----
-
 ## Goal
 
 To move beyond “building models” and toward **understanding how systems behave when things go wrong**.
