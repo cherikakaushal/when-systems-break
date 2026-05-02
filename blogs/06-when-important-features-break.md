@@ -20,6 +20,13 @@ The model was then evaluated again on this modified data.
 ---
 
 ## Observations
+## Experiment Result
+
+- Baseline accuracy: ~0.95  
+- After removing top features: ~0.85  
+- Drop observed: significant  
+
+This confirms that removing key features directly impacts model performance.
 
 - Performance dropped significantly after removing key features  
 - The model struggled to maintain accuracy  
