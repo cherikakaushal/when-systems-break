@@ -70,6 +70,10 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 ### Noise vs Accuracy
 ![Noise Curve](experiment/noise_curve.png)
 
+## Failure Comparison
+
+![Failure Comparison](experiment/failure_comparison.png)
+
 ---
 
 ## Tech Stack
