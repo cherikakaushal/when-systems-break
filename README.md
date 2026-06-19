@@ -31,6 +31,7 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 - [What happens when important features disappear?](blogs/06-when-important-features-break.md)
 - [When models become overconfident](blogs/07-model-confidence-under-noise.md)
 - [How robust is a model to increasing noise?](blogs/08-robustness-under-noise.md)
+- [Why one accuracy score is not enough](blogs/11-statistical-robustness.md)
 
 ---
 
@@ -53,6 +54,9 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 
 6. **Robustness Curve**  
    Measured how accuracy changes as noise increases  
+
+7. **Multi-Run Statistical Robustness**  
+   Repeated model evaluation across 30 random seeds to measure mean accuracy and variance  
 
 ---
 
