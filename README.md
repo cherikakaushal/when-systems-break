@@ -1,5 +1,8 @@
 # when-systems-break
 
+📄 Research Report:
+[paper/when-systems-break.pdf](paper/when-systems-break.pdf)
+
 A research-style project exploring how machine learning systems behave under real-world imperfect data conditions.
 
 ---
