@@ -5,6 +5,8 @@
 
 A research-style project exploring how machine learning systems behave under real-world imperfect data conditions.
 
+![Failure Matrix](figures/failure_matrix.png)
+
 ---
 
 ## Overview
@@ -31,7 +33,10 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 - [What happens when important features disappear?](blogs/06-when-important-features-break.md)
 - [When models become overconfident](blogs/07-model-confidence-under-noise.md)
 - [How robust is a model to increasing noise?](blogs/08-robustness-under-noise.md)
+- [Failure taxonomy](blogs/09-failure-taxonomy.md)
+- [Comparing failure patterns](blogs/10-comparing-failure-patterns.md)
 - [Why one accuracy score is not enough](blogs/11-statistical-robustness.md)
+- [When models become confidently wrong](blogs/12-confidence-collapse.md)
 
 ---
 
@@ -58,6 +63,24 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 7. **Multi-Run Statistical Robustness**  
    Repeated model evaluation across 30 random seeds to measure mean accuracy and variance  
 
+8. **Failure Matrix Dashboard**  
+   Compared clean, noisy, missing-data, and feature-removal performance across models  
+
+9. **Confidence Collapse Study**  
+   Measured how predicted probabilities change as noise increases and mistakes become more frequent  
+
+---
+
+## Interactive Demo
+
+Run the Streamlit demo:
+
+```bash
+streamlit run app.py
+```
+
+The demo supports uploaded data, noise injection, feature removal, missing-data creation, prediction, confidence, and failure-risk scoring.
+
 ---
 
 ## Key Insights
@@ -76,6 +99,12 @@ The goal is not just to optimize accuracy, but to **study how systems respond wh
 
 ### Noise vs Accuracy
 ![Noise Curve](experiment/noise_curve.png)
+
+### Failure Matrix
+![Failure Matrix](figures/failure_matrix.png)
+
+### Confidence Collapse
+![Confidence Collapse](figures/confidence_collapse.png)
 
 ## Failure Comparison
 

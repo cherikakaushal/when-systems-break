@@ -1,0 +1,5 @@
+Model,Clean,Noise,Missing,Feature Removal
+Logistic Regression,98.25,96.49,97.37,98.25
+Decision Tree,91.23,90.35,85.96,90.35
+Random Forest,95.61,95.61,96.49,92.98
+SVM,98.25,98.25,98.25,97.37
