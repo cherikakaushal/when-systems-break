@@ -1,78 +1,45 @@
 # When Systems Break:
-# Understanding Model Failure Under Noise, Missing Data, and Feature Degradation
+# Understanding Model Failure Under Noise, Missing Data, Feature Degradation, and Refusal Thresholds
 
 ## 1. Abstract
 
-Machine learning models often achieve high performance under ideal conditions but can behave unpredictably when data quality deteriorates. This project investigates how machine learning models respond to noise, missing information, and feature degradation. Through a series of controlled experiments, models were evaluated under progressively challenging conditions to identify failure patterns, robustness thresholds, and changes in predictive behavior.
+Machine learning systems are commonly evaluated using clean-data accuracy, but deployed models often operate under degraded input conditions. Data can become noisy, incomplete, corrupted, or partially unavailable, causing models to behave differently from their reported benchmark performance. This paper studies how supervised learning models respond when the assumptions behind their inputs begin to fail.
 
-The experiments examine baseline performance, missing-data behavior, injected noise, feature importance, feature removal, threshold effects, statistical robustness, failure matrices, confidence collapse, and refusal-based reliability. Results show that model performance degrades non-linearly as data quality decreases. Certain features contribute disproportionately to model stability, while accuracy can remain relatively stable at low noise levels before declining more sharply as degradation increases.
+Using a controlled tabular classification setting, twelve experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside coverage and refusal rate.
 
-These findings highlight the importance of robustness testing and explainability when deploying machine learning systems in real-world environments. Understanding how models behave under imperfect conditions provides a clearer view of failure risk than clean-data accuracy alone.
+The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions.
 
 ## 2. Introduction
 
-Most machine learning projects focus on improving accuracy.
+Most machine learning projects emphasize improving accuracy under ideal conditions. This is useful, but it is incomplete. Real-world systems rarely receive perfectly clean inputs. Features may be missing, sensors may produce noise, users may enter unusual values, and deployment data may differ from training data.
 
-However, real-world systems rarely operate under ideal conditions. Data can be noisy, incomplete, corrupted, or significantly different from the distribution seen during training.
+This raises a practical reliability question:
 
-This raises an important question:
+What happens when a machine learning system is asked to make predictions under degraded information?
 
-What happens when the assumptions behind a machine learning model begin to fail?
+The goal of this project is to study model failure as a measurable process. Instead of treating failure as a single event, the experiments examine how performance changes as input quality declines. The project also studies whether confidence scores can help identify risky predictions before the system fails visibly.
 
-The objective of this project is to systematically explore how machine learning systems behave under various forms of information degradation and identify patterns that emerge before complete failure occurs.
+The research story progresses through three stages:
 
-## 3. Research Questions
+1. Models fail under degraded information.
 
-**RQ1:** How does increasing noise affect model accuracy?
+2. Some failures can be detected through accuracy, confidence, and variance.
 
-**RQ2:** Which features contribute most to model performance?
+3. Systems can respond by refusing predictions when reliability is too low.
 
-**RQ3:** Do different algorithms fail differently?
+## 3. Experimental Setup
 
-**RQ4:** Can confidence scores indicate failure before accuracy drops?
-
-**RQ5:** Is missing information more harmful than noisy information?
-
-**RQ6:** When should a machine learning system stop trusting itself?
-
-## 4. Methodology
-
-Twelve controlled experiments were conducted.
-
-**Experiment 1:** Baseline model training and evaluation.
-
-**Experiment 2:** Performance under missing data.
-
-**Experiment 3:** Feature importance analysis.
-
-**Experiment 4:** Comparison of multiple machine learning models.
-
-**Experiment 5:** Feature removal analysis.
-
-**Experiment 6:** Noise threshold analysis.
-
-**Experiment 7:** Confidence degradation and reliability threshold analysis.
-
-**Experiment 8:** Comparative failure pattern evaluation.
-
-**Experiment 9:** Multi-run statistical robustness analysis across 30 random seeds.
-
-**Experiment 10:** Failure matrix dashboard comparing models across degradation conditions.
-
-**Experiment 11:** Confidence collapse analysis using predicted probabilities.
-
-**Experiment 12:** Refusal-based reliability analysis using confidence thresholds.
-
-## 5. Experimental Setup
+All experiments were implemented in Python using a controlled classification workflow.
 
 **Language:** Python
 
 **Libraries:**
 
-- Pandas
 - NumPy
-- Scikit-Learn
+- Pandas
+- Scikit-learn
 - Matplotlib
+- Seaborn
 
 **Models:**
 
@@ -84,106 +51,150 @@ Twelve controlled experiments were conducted.
 **Evaluation Metrics:**
 
 - Accuracy
-- Confidence and reliability behavior
-- Coverage and refusal rate
+- Mean accuracy across repeated runs
+- Standard deviation across repeated runs
+- Prediction confidence using `predict_proba()`
+- Coverage
+- Refusal rate
 - Feature importance
 
-## 6. Refusal-Based Reliability
+The experiments use clean data as a baseline and then introduce controlled degradation through noise injection, missing values, feature removal, and confidence thresholds. Later experiments compare multiple models and summarize failure patterns in aggregate visualizations.
 
-The refusal-based reliability experiment asks when a model should stop trusting itself.
+## 4. Noise Analysis
 
-Standard classifiers usually return a prediction for every input. This means a model may continue predicting even when the confidence score is low or the input has become unreliable.
+Noise analysis evaluates how model accuracy changes when random perturbations are added to the input features. This simulates real-world situations where measurements are imprecise, corrupted, or affected by environmental variation.
 
-A safer system can add a confidence threshold:
+![Noise Curve](figures/noise_curve.png)
+
+The noise curve shows that degradation is not always immediate. At lower noise levels, the model may continue to perform well. As noise increases, accuracy begins to decline more noticeably. This suggests that model failure can be non-linear: systems may appear stable until a reliability threshold is crossed.
+
+Threshold analysis provides a second view of this behavior.
+
+![Threshold Analysis](figures/threshold_analysis.png)
+
+Together, these results show why robustness testing should evaluate performance across multiple degradation levels rather than relying on a single noisy condition.
+
+## 5. Missing Data Analysis
+
+Missing data analysis studies how the system behaves when part of the input information is unavailable. In real deployments, missing values can come from incomplete forms, sensor failures, data pipeline issues, or unavailable external signals.
+
+Missing information differs from random noise. Noise distorts existing information, while missingness removes information entirely. This can be more harmful when the missing features are important for prediction.
+
+The project also studies feature importance to identify which inputs contribute most strongly to model behavior.
+
+![Feature Importance](figures/feature_importance.png)
+
+The feature-importance results show that not all features contribute equally. A small subset of features has a larger effect on model predictions. This means that removing or corrupting important features can produce sharper performance drops than degrading less influential features.
+
+## 6. Confidence Collapse
+
+Confidence collapse asks whether a model becomes less certain as inputs become less reliable.
+
+The experiment uses `predict_proba()` to track three signals as noise increases:
+
+- accuracy
+- confidence in the correct class
+- number of wrong predictions
+
+![Confidence Collapse](figures/confidence_collapse.png)
+
+The results show that wrong predictions become more frequent as noise increases. Confidence in the correct class also declines, but the model can still assign high confidence to some incorrect predictions. This is an important reliability risk: a wrong but uncertain model is easier to manage than a wrong and confident one.
+
+Confidence scores are therefore useful, but they should not be treated as perfect guarantees. They are signals that can support reliability decisions, especially when combined with degradation tests and refusal thresholds.
+
+## 7. Refusal-Based Reliability
+
+Refusal-based reliability addresses the question:
+
+When should a machine learning system stop trusting itself?
+
+Standard classifiers usually predict every time:
+
+```text
+prediction = model.predict(X)
+confidence = max(model.predict_proba(X))
+```
+
+A refusal-aware system adds a safety rule:
 
 ```text
 if confidence < threshold:
     prediction = "REFUSE"
 ```
 
-This creates a tradeoff between accuracy and coverage. Higher thresholds reject more low-confidence predictions, which can improve the accuracy of accepted predictions while reducing the number of cases the model is willing to answer.
+This creates a tradeoff between accuracy and coverage. Coverage measures how often the model is willing to make a prediction. Accuracy measures how often accepted predictions are correct. As the confidence threshold increases, the model refuses more low-confidence examples. This can improve the quality of accepted predictions while reducing how often the system answers.
 
 ![Accuracy vs Coverage](figures/accuracy_vs_coverage.png)
 
-This result shifts the project from only observing failure to responding to failure. If confidence can identify risky inputs, the model can defer, refuse, or request better data instead of making a fragile prediction.
+The refusal experiment evaluates thresholds from 0.50 to 0.90 and stores threshold, coverage, accuracy, refusal rate, accepted predictions, and refused predictions. This turns robustness analysis into a practical system-design question: should the model answer, or should it defer?
 
-## 7. Results
+## 8. Failure Matrix
 
-### Result 1: Effect of Noise
-
-![Noise Curve](figures/noise_curve.png)
-
-Accuracy decreases as noise increases. The decline remains gradual initially but accelerates beyond a critical threshold, showing that failure is not always immediate.
-
-### Result 2: Feature Importance
-
-![Feature Importance](figures/feature_importance.png)
-
-A small subset of features contributes disproportionately to model performance. This suggests that degradation in highly influential features can be more damaging than random degradation across all features.
-
-### Result 3: Threshold Analysis
-
-![Threshold Analysis](figures/threshold_analysis.png)
-
-Threshold analysis shows how reliability changes as noise becomes stronger. The model remains relatively stable at lower noise levels, then becomes more vulnerable as the perturbation increases.
-
-### Result 4: Model Comparison
-
-![Failure Comparison](figures/failure_comparison.png)
-
-The comparison highlights that different failure conditions do not produce identical effects. Clean data, noisy data, missing values, feature removal, and combined degradation create distinct performance patterns.
-
-### Result 5: Failure Matrix
+The failure matrix compares multiple models across multiple degradation conditions in one visualization. It evaluates clean inputs, noisy inputs, missing data, and feature-removal conditions.
 
 ![Failure Matrix](figures/failure_matrix.png)
 
-The failure matrix compares models across clean, noisy, missing-data, and feature-removal conditions. This provides a compact view of which models remain stable and which conditions produce the strongest degradation.
+The matrix shows that failure behavior is not uniform. Some models remain more stable under noise, while others are more affected by missing data or feature removal. This supports the idea that robustness is model-specific and condition-specific.
 
-### Result 6: Confidence Collapse
+The project also includes a broader failure-pattern comparison.
 
-![Confidence Collapse](figures/confidence_collapse.png)
+![Failure Comparison](figures/failure_comparison.png)
 
-The confidence collapse study shows that wrong predictions become more frequent as noise increases. Confidence behavior is therefore useful for identifying when a model should defer, refuse, or request better input.
+Together, these visualizations provide a compact view of how different forms of degradation affect model reliability.
 
-## 8. Key Findings
+## 9. Key Findings
 
-1. Noise does not cause immediate failure.
+1. Clean-data accuracy is not enough to evaluate reliability.
 
-2. Performance degradation occurs gradually before collapse.
+2. Noise does not always cause immediate failure.
 
-3. Some features have significantly greater influence than others.
+3. Performance degradation often appears gradually before a sharper decline.
 
-4. Different models and degradation conditions exhibit different robustness characteristics.
+4. Missing information and feature removal can be more harmful when important features are affected.
 
-5. Confidence and reliability behavior may serve as early warning signals.
+5. Different algorithms exhibit different robustness characteristics.
 
-6. Repeated runs reveal stability patterns that a single accuracy score can hide.
+6. Repeated runs reveal variance that a single accuracy score hides.
 
-7. Confidence collapse helps identify when prediction should become refusal.
+7. Confidence scores can act as early warning signals, but they are not perfect.
 
-8. Refusal thresholds expose a tradeoff between safer predictions and reduced coverage.
+8. Refusal thresholds expose a tradeoff between accepted-prediction accuracy and coverage.
 
-## 9. Limitations
+9. A safer machine learning system should know when not to answer.
 
-The experiments were performed on a limited dataset and in a controlled environment. While this makes the failure patterns easier to isolate, it does not fully capture the complexity of production machine learning systems.
+## 10. Limitations
 
-Future studies should investigate larger datasets, distribution shifts, adversarial perturbations, and real-world deployment scenarios.
+The experiments were conducted on a limited tabular dataset in a controlled environment. This makes failure patterns easier to isolate, but it does not capture the full complexity of production machine learning systems.
 
-## 10. Future Work
+The degradation methods are also simplified. Gaussian noise, missing-value simulation, and feature removal are useful controlled tests, but real-world failure modes may include distribution shift, adversarial perturbations, data drift, semantic corruption, and feedback loops.
+
+Confidence scores are model-dependent and may require calibration before being used as operational reliability signals. The refusal system is therefore a prototype for studying abstention behavior, not a complete production safety mechanism.
+
+## 11. Future Work
 
 Future work includes:
 
 - Explainable AI using SHAP
+- Confidence calibration experiments
 - Semantic noise analysis
 - Distribution shift experiments
-- Human-in-the-loop evaluation
-- Interactive robustness dashboard
+- Adversarial perturbation testing
+- Human-in-the-loop review workflows
 - Cost-sensitive refusal policies
+- Interactive robustness dashboard expansion
 
-## 11. Conclusion
+## 12. References
 
-This project demonstrates that machine learning systems often fail gradually rather than abruptly.
+1. Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 2011.
 
-By studying noise, missing information, feature degradation, confidence collapse, and refusal thresholds, it becomes possible to identify early warning signs of failure and better understand model robustness.
+2. McKinney, W. Data Structures for Statistical Computing in Python. Proceedings of the 9th Python in Science Conference, 2010.
 
-Understanding how systems break is important. Understanding when they should stop answering is what makes them safer.
+3. Harris, C. R. et al. Array programming with NumPy. Nature, 2020.
+
+4. Hunter, J. D. Matplotlib: A 2D Graphics Environment. Computing in Science and Engineering, 2007.
+
+5. Geurts, P., Ernst, D., and Wehenkel, L. Extremely randomized trees. Machine Learning, 2006.
+
+6. Cortes, C. and Vapnik, V. Support-vector networks. Machine Learning, 1995.
+
+7. Geifman, Y. and El-Yaniv, R. Selective Classification for Deep Neural Networks. Advances in Neural Information Processing Systems, 2017.
