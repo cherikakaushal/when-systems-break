@@ -61,5 +61,5 @@ plt.xlabel("Noise Level")
 plt.ylabel("Accuracy")
 plt.grid(True)
 
-plt.savefig("experiment/threshold_analysis.png")
+plt.savefig("experiments/threshold_analysis.png")
 plt.show()

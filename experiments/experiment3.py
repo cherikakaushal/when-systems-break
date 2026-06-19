@@ -47,5 +47,5 @@ plt.title("Top 10 Most Important Features")
 plt.gca().invert_yaxis()
 
 # Save image
-plt.savefig("experiment/feature_importance.png")
+plt.savefig("experiments/feature_importance.png")
 plt.show()

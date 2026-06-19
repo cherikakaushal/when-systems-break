@@ -5,7 +5,7 @@
 
 Machine learning models often achieve high performance under ideal conditions but can behave unpredictably when data quality deteriorates. This project investigates how machine learning models respond to noise, missing information, and feature degradation. Through a series of controlled experiments, models were evaluated under progressively challenging conditions to identify failure patterns, robustness thresholds, and changes in predictive behavior.
 
-The experiments examine baseline performance, missing-data behavior, injected noise, feature importance, feature removal, threshold effects, and comparative failure patterns. Results show that model performance degrades non-linearly as data quality decreases. Certain features contribute disproportionately to model stability, while accuracy can remain relatively stable at low noise levels before declining more sharply as degradation increases.
+The experiments examine baseline performance, missing-data behavior, injected noise, feature importance, feature removal, threshold effects, statistical robustness, failure matrices, and confidence collapse. Results show that model performance degrades non-linearly as data quality decreases. Certain features contribute disproportionately to model stability, while accuracy can remain relatively stable at low noise levels before declining more sharply as degradation increases.
 
 These findings highlight the importance of robustness testing and explainability when deploying machine learning systems in real-world environments. Understanding how models behave under imperfect conditions provides a clearer view of failure risk than clean-data accuracy alone.
 
@@ -35,7 +35,7 @@ The objective of this project is to systematically explore how machine learning 
 
 ## 4. Methodology
 
-Eight controlled experiments were conducted.
+Eleven controlled experiments were conducted.
 
 **Experiment 1:** Baseline model training and evaluation.
 
@@ -53,6 +53,12 @@ Eight controlled experiments were conducted.
 
 **Experiment 8:** Comparative failure pattern evaluation.
 
+**Experiment 9:** Multi-run statistical robustness analysis across 30 random seeds.
+
+**Experiment 10:** Failure matrix dashboard comparing models across degradation conditions.
+
+**Experiment 11:** Confidence collapse analysis using predicted probabilities.
+
 ## 5. Experimental Setup
 
 **Language:** Python
@@ -67,7 +73,9 @@ Eight controlled experiments were conducted.
 **Models:**
 
 - Logistic Regression
+- Decision Tree
 - Random Forest
+- Support Vector Machine
 
 **Evaluation Metrics:**
 
@@ -101,6 +109,18 @@ Threshold analysis shows how reliability changes as noise becomes stronger. The 
 
 The comparison highlights that different failure conditions do not produce identical effects. Clean data, noisy data, missing values, feature removal, and combined degradation create distinct performance patterns.
 
+### Result 5: Failure Matrix
+
+![Failure Matrix](figures/failure_matrix.png)
+
+The failure matrix compares models across clean, noisy, missing-data, and feature-removal conditions. This provides a compact view of which models remain stable and which conditions produce the strongest degradation.
+
+### Result 6: Confidence Collapse
+
+![Confidence Collapse](figures/confidence_collapse.png)
+
+The confidence collapse study shows that wrong predictions become more frequent as noise increases. Confidence behavior is therefore useful for identifying when a model should defer, refuse, or request better input.
+
 ## 7. Key Findings
 
 1. Noise does not cause immediate failure.
@@ -112,6 +132,10 @@ The comparison highlights that different failure conditions do not produce ident
 4. Different models and degradation conditions exhibit different robustness characteristics.
 
 5. Confidence and reliability behavior may serve as early warning signals.
+
+6. Repeated runs reveal stability patterns that a single accuracy score can hide.
+
+7. Confidence collapse helps identify when prediction should become refusal.
 
 ## 8. Limitations
 

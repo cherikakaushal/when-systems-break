@@ -1,0 +1,25 @@
+# Experiments
+
+This folder contains the reproducible experiment scripts and generated outputs for the project.
+
+| # | Script | Output |
+|---:|---|---|
+| 01 | [experiment1.py](experiment1.py) | `result.png` |
+| 02 | [experiment2.py](experiment2.py) | console metrics |
+| 03 | [experiment3.py](experiment3.py) | `feature_importance.png` |
+| 04 | [experiment4_model_comparison.py](experiment4_model_comparison.py) | console model comparison |
+| 05 | [experiment5_feature_removal.py](experiment5_feature_removal.py) | console sensitivity metrics |
+| 06 | [experiment6_noise_curve.py](experiment6_noise_curve.py) | `noise_curve.png` |
+| 07 | [experiment7_threshold_analysis.py](experiment7_threshold_analysis.py) | `threshold_analysis.png` |
+| 08 | [experiment8_comparison.py](experiment8_comparison.py) | `failure_comparison.png` |
+| 09 | [experiment9_multi_run_analysis.py](experiment9_multi_run_analysis.py) | `model_statistics.csv` |
+| 10 | [experiment10_failure_matrix.py](experiment10_failure_matrix.py) | `failure_matrix.csv`, `failure_matrix.png` |
+| 11 | [experiment11_confidence_collapse.py](experiment11_confidence_collapse.py) | `confidence_collapse.csv`, `confidence_collapse.png` |
+
+Run the newest experiments:
+
+```bash
+python experiments/experiment9_multi_run_analysis.py
+python experiments/experiment10_failure_matrix.py
+python experiments/experiment11_confidence_collapse.py
+```

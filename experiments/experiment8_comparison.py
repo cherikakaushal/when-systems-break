@@ -31,5 +31,5 @@ plt.ylabel("Accuracy")
 
 plt.grid(True)
 
-plt.savefig("experiment/failure_comparison.png")
+plt.savefig("experiments/failure_comparison.png")
 plt.show()

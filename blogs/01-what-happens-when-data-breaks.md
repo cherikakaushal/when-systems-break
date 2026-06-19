@@ -62,7 +62,7 @@ Understanding how models behave under imperfect conditions is essential for buil
 
 ## Visualization
 
-![Accuracy Comparison](../experiment/result.png)
+![Accuracy Comparison](../experiments/result.png)
 
 ---
 

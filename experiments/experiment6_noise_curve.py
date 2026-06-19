@@ -45,5 +45,5 @@ plt.xlabel("Noise Level")
 plt.ylabel("Accuracy")
 plt.grid()
 
-plt.savefig("experiment/noise_curve.png")
+plt.savefig("experiments/noise_curve.png")
 plt.show()
