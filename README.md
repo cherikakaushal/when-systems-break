@@ -1,6 +1,6 @@
 # When Systems Break
 
-**An experimental framework for studying machine learning failure under noise, missing data, feature degradation, and confidence collapse.**
+**An experimental framework for studying machine learning failure under noise, missing data, feature degradation, confidence collapse, and refusal-based reliability.**
 
 [Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
 
@@ -38,6 +38,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Multi-run statistical analysis across 30 random seeds
 - Failure matrix heatmap for model-by-condition comparison
 - Confidence collapse study using `predict_proba()`
+- Refusal-threshold analysis for safer model behavior
 - Streamlit demo for interactively injecting failure conditions
 - Research-style paper with generated figures and PDF export
 
@@ -50,9 +51,11 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Research paper | [paper/when-systems-break.pdf](paper/when-systems-break.pdf) |
 | Failure matrix heatmap | [figures/failure_matrix.png](figures/failure_matrix.png) |
 | Confidence collapse plot | [figures/confidence_collapse.png](figures/confidence_collapse.png) |
+| Accuracy vs coverage plot | [figures/accuracy_vs_coverage.png](figures/accuracy_vs_coverage.png) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
+| Refusal statistics CSV | [experiments/refusal_statistics.csv](experiments/refusal_statistics.csv) |
 
 ---
 
@@ -71,6 +74,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 09 | Multi-run statistics | [experiment9_multi_run_analysis.py](experiments/experiment9_multi_run_analysis.py) | Estimate mean and variance across 30 random seeds |
 | 10 | Failure matrix dashboard | [experiment10_failure_matrix.py](experiments/experiment10_failure_matrix.py) | Generate the model-by-condition heatmap |
 | 11 | Confidence collapse | [experiment11_confidence_collapse.py](experiments/experiment11_confidence_collapse.py) | Track confidence decline and wrong predictions under noise |
+| 12 | Refusal system | [experiment12_refusal_system.py](experiments/experiment12_refusal_system.py) | Measure accuracy, coverage, and refusal rate across confidence thresholds |
 
 ---
 
@@ -90,6 +94,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 10 | [Comparing failure patterns](blogs/10-comparing-failure-patterns.md) |
 | 11 | [Why one accuracy score is not enough](blogs/11-statistical-robustness.md) |
 | 12 | [When models become confidently wrong](blogs/12-confidence-collapse.md) |
+| 13 | [When should a model say "I don't know"?](blogs/13-when-should-a-model-refuse.md) |
 
 ---
 
@@ -123,6 +128,7 @@ Run the newest research experiments:
 python experiments/experiment9_multi_run_analysis.py
 python experiments/experiment10_failure_matrix.py
 python experiments/experiment11_confidence_collapse.py
+python experiments/experiment12_refusal_system.py
 ```
 
 ---
@@ -131,16 +137,16 @@ python experiments/experiment11_confidence_collapse.py
 
 ```text
 when-systems-break/
-├── app.py
-├── README.md
-├── requirements.txt
-├── blogs/
-├── data/
-├── docs/
-├── experiments/
-├── figures/
-├── notebooks/
-└── paper/
+|-- app.py
+|-- README.md
+|-- requirements.txt
+|-- blogs/
+|-- data/
+|-- docs/
+|-- experiments/
+|-- figures/
+|-- notebooks/
+`-- paper/
 ```
 
 ---
@@ -161,4 +167,4 @@ when-systems-break/
 
 Machine learning systems often fail gradually before they fail obviously.
 
-By studying noise, missing information, feature degradation, statistical variance, and confidence collapse, this project shows why robustness testing is as important as clean-data accuracy.
+By studying noise, missing information, feature degradation, statistical variance, confidence collapse, and refusal thresholds, this project shows why robustness testing is as important as clean-data accuracy.

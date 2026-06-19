@@ -5,7 +5,7 @@
 
 Machine learning models often achieve high performance under ideal conditions but can behave unpredictably when data quality deteriorates. This project investigates how machine learning models respond to noise, missing information, and feature degradation. Through a series of controlled experiments, models were evaluated under progressively challenging conditions to identify failure patterns, robustness thresholds, and changes in predictive behavior.
 
-The experiments examine baseline performance, missing-data behavior, injected noise, feature importance, feature removal, threshold effects, statistical robustness, failure matrices, and confidence collapse. Results show that model performance degrades non-linearly as data quality decreases. Certain features contribute disproportionately to model stability, while accuracy can remain relatively stable at low noise levels before declining more sharply as degradation increases.
+The experiments examine baseline performance, missing-data behavior, injected noise, feature importance, feature removal, threshold effects, statistical robustness, failure matrices, confidence collapse, and refusal-based reliability. Results show that model performance degrades non-linearly as data quality decreases. Certain features contribute disproportionately to model stability, while accuracy can remain relatively stable at low noise levels before declining more sharply as degradation increases.
 
 These findings highlight the importance of robustness testing and explainability when deploying machine learning systems in real-world environments. Understanding how models behave under imperfect conditions provides a clearer view of failure risk than clean-data accuracy alone.
 
@@ -33,9 +33,11 @@ The objective of this project is to systematically explore how machine learning 
 
 **RQ5:** Is missing information more harmful than noisy information?
 
+**RQ6:** When should a machine learning system stop trusting itself?
+
 ## 4. Methodology
 
-Eleven controlled experiments were conducted.
+Twelve controlled experiments were conducted.
 
 **Experiment 1:** Baseline model training and evaluation.
 
@@ -59,6 +61,8 @@ Eleven controlled experiments were conducted.
 
 **Experiment 11:** Confidence collapse analysis using predicted probabilities.
 
+**Experiment 12:** Refusal-based reliability analysis using confidence thresholds.
+
 ## 5. Experimental Setup
 
 **Language:** Python
@@ -81,9 +85,29 @@ Eleven controlled experiments were conducted.
 
 - Accuracy
 - Confidence and reliability behavior
+- Coverage and refusal rate
 - Feature importance
 
-## 6. Results
+## 6. Refusal-Based Reliability
+
+The refusal-based reliability experiment asks when a model should stop trusting itself.
+
+Standard classifiers usually return a prediction for every input. This means a model may continue predicting even when the confidence score is low or the input has become unreliable.
+
+A safer system can add a confidence threshold:
+
+```text
+if confidence < threshold:
+    prediction = "REFUSE"
+```
+
+This creates a tradeoff between accuracy and coverage. Higher thresholds reject more low-confidence predictions, which can improve the accuracy of accepted predictions while reducing the number of cases the model is willing to answer.
+
+![Accuracy vs Coverage](figures/accuracy_vs_coverage.png)
+
+This result shifts the project from only observing failure to responding to failure. If confidence can identify risky inputs, the model can defer, refuse, or request better data instead of making a fragile prediction.
+
+## 7. Results
 
 ### Result 1: Effect of Noise
 
@@ -121,7 +145,7 @@ The failure matrix compares models across clean, noisy, missing-data, and featur
 
 The confidence collapse study shows that wrong predictions become more frequent as noise increases. Confidence behavior is therefore useful for identifying when a model should defer, refuse, or request better input.
 
-## 7. Key Findings
+## 8. Key Findings
 
 1. Noise does not cause immediate failure.
 
@@ -137,13 +161,15 @@ The confidence collapse study shows that wrong predictions become more frequent 
 
 7. Confidence collapse helps identify when prediction should become refusal.
 
-## 8. Limitations
+8. Refusal thresholds expose a tradeoff between safer predictions and reduced coverage.
+
+## 9. Limitations
 
 The experiments were performed on a limited dataset and in a controlled environment. While this makes the failure patterns easier to isolate, it does not fully capture the complexity of production machine learning systems.
 
 Future studies should investigate larger datasets, distribution shifts, adversarial perturbations, and real-world deployment scenarios.
 
-## 9. Future Work
+## 10. Future Work
 
 Future work includes:
 
@@ -152,11 +178,12 @@ Future work includes:
 - Distribution shift experiments
 - Human-in-the-loop evaluation
 - Interactive robustness dashboard
+- Cost-sensitive refusal policies
 
-## 10. Conclusion
+## 11. Conclusion
 
 This project demonstrates that machine learning systems often fail gradually rather than abruptly.
 
-By studying noise, missing information, and feature degradation, it becomes possible to identify early warning signs of failure and better understand model robustness.
+By studying noise, missing information, feature degradation, confidence collapse, and refusal thresholds, it becomes possible to identify early warning signs of failure and better understand model robustness.
 
-Understanding how systems break may ultimately be as important as understanding how they succeed.
+Understanding how systems break is important. Understanding when they should stop answering is what makes them safer.

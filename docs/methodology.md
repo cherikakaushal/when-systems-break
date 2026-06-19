@@ -37,7 +37,9 @@ The primary metrics are:
 - standard deviation across seeds
 - prediction confidence
 - wrong prediction count
+- coverage
+- refusal rate
 
 ## Interpretation
 
-A robust model should not only perform well on clean data. It should also degrade predictably, show low variance across repeated runs, and reduce confidence when input quality becomes unreliable.
+A robust model should not only perform well on clean data. It should also degrade predictably, show low variance across repeated runs, reduce confidence when input quality becomes unreliable, and refuse predictions when confidence falls below a reliability threshold.

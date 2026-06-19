@@ -15,6 +15,7 @@ This folder contains the reproducible experiment scripts and generated outputs f
 | 09 | [experiment9_multi_run_analysis.py](experiment9_multi_run_analysis.py) | `model_statistics.csv` |
 | 10 | [experiment10_failure_matrix.py](experiment10_failure_matrix.py) | `failure_matrix.csv`, `failure_matrix.png` |
 | 11 | [experiment11_confidence_collapse.py](experiment11_confidence_collapse.py) | `confidence_collapse.csv`, `confidence_collapse.png` |
+| 12 | [experiment12_refusal_system.py](experiment12_refusal_system.py) | `refusal_statistics.csv`, `accuracy_vs_coverage.png` |
 
 Run the newest experiments:
 
@@ -22,4 +23,5 @@ Run the newest experiments:
 python experiments/experiment9_multi_run_analysis.py
 python experiments/experiment10_failure_matrix.py
 python experiments/experiment11_confidence_collapse.py
+python experiments/experiment12_refusal_system.py
 ```
