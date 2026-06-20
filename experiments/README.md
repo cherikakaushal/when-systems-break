@@ -16,7 +16,8 @@ This folder contains the reproducible experiment scripts and generated outputs f
 | 10 | [experiment10_failure_matrix.py](experiment10_failure_matrix.py) | `failure_matrix.csv`, `failure_matrix.png` |
 | 11 | [experiment11_confidence_collapse.py](experiment11_confidence_collapse.py) | `confidence_collapse.csv`, `confidence_collapse.png` |
 | 12 | [experiment12_refusal_system.py](experiment12_refusal_system.py) | `refusal_statistics.csv`, `accuracy_vs_coverage.png` |
-| 13 | [experiment13_reliability_score.py](experiment13_reliability_score.py) | `reliability_scores.csv`, `reliability_run_metrics.csv`, `reliability_scores.png` |
+| 13 | [experiment13_calibration.py](experiment13_calibration.py) | `calibration_metrics.csv`, `calibration_bins.csv`, `calibration_curve.png`, `reliability_diagram.png` |
+| 14 | [experiment14_reliability_score.py](experiment14_reliability_score.py) | `reliability_scores.csv`, `reliability_run_metrics.csv`, `reliability_scores.png` |
 
 Run the newest experiments:
 
@@ -25,5 +26,6 @@ python experiments/experiment9_multi_run_analysis.py
 python experiments/experiment10_failure_matrix.py
 python experiments/experiment11_confidence_collapse.py
 python experiments/experiment12_refusal_system.py
-python experiments/experiment13_reliability_score.py
+python experiments/experiment13_calibration.py
+python experiments/experiment14_reliability_score.py
 ```

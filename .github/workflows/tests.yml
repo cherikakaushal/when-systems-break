@@ -29,4 +29,7 @@ jobs:
         run: python experiments/experiment10_failure_matrix.py
 
       - name: Run reliability score framework
-        run: python experiments/experiment13_reliability_score.py
+        run: python experiments/experiment14_reliability_score.py
+
+      - name: Run confidence calibration analysis
+        run: python experiments/experiment13_calibration.py

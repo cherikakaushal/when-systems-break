@@ -43,7 +43,7 @@ The primary metrics are:
 
 ## Reliability Score Framework
 
-Experiment 13 proposes a composite score for comparing models within this controlled benchmark:
+Experiment 14 proposes a composite score for comparing models within this controlled benchmark:
 
 ```text
 Reliability = 0.30(Accuracy)
@@ -62,6 +62,20 @@ Reliability = 0.30(Accuracy)
 Every component is scaled from 0 to 100. The weights are explicit design choices, not learned parameters. The score is intended for within-project model comparison and has not been externally validated as a general-purpose safety metric.
 
 The generated `reliability_run_metrics.csv` retains each seed, model, condition, accuracy, and mean confidence observation used to build the summary.
+
+## Confidence Calibration
+
+Experiment 13 tests whether stated confidence corresponds to empirical correctness. Predictions from 30 seeded train-test splits are pooled and grouped into ten equal-width confidence bins under clean and noisy inputs.
+
+Expected Calibration Error is calculated as:
+
+```text
+ECE = sum((bin count / total count) * abs(bin accuracy - bin confidence))
+```
+
+A perfectly calibrated 90% confidence bin should be correct approximately 90% of the time. The experiment exports every populated bin, pooled ECE, mean and standard deviation of run-level ECE, and the observed accuracy of predictions in the 90-100% confidence bin.
+
+Because ECE depends on binning strategy and sample size, it is reported together with the full reliability diagram rather than treated as a sufficient standalone statistic.
 
 ## Interpretation
 

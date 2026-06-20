@@ -8,7 +8,7 @@
 
 ## Model Reliability Score
 
-A single accuracy value hides how a model behaves when conditions change. Experiment 13 introduces a transparent composite score built from five measured components.
+A single accuracy value hides how a model behaves when conditions change. Experiment 14 introduces a transparent composite score built from five measured components.
 
 | Model | Reliability Score | Clean Accuracy | Robustness | Confidence Stability | Refusal Quality | Repeatability |
 |---|---:|---:|---:|---:|---:|---:|
@@ -42,6 +42,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 5. Is missing information more harmful than noisy information?
 6. When should a model refuse to make a prediction?
 7. Can multiple reliability signals be combined without hiding their tradeoffs?
+8. Does 90% confidence actually correspond to 90% correctness?
 
 ---
 
@@ -52,6 +53,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Multi-run statistical analysis across 30 random seeds
 - Failure matrix heatmap for model-by-condition comparison
 - Confidence collapse study using `predict_proba()`
+- Calibration analysis with Expected Calibration Error and reliability diagrams
 - Refusal-threshold analysis for safer model behavior
 - Proposed five-component Model Reliability Score across 30 seeded runs
 - Streamlit demo for interactively injecting failure conditions
@@ -70,6 +72,9 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Reliability score plot | [figures/reliability_scores.png](figures/reliability_scores.png) |
 | Reliability score CSV | [experiments/reliability_scores.csv](experiments/reliability_scores.csv) |
 | Reliability run-level audit data | [experiments/reliability_run_metrics.csv](experiments/reliability_run_metrics.csv) |
+| Calibration curve | [figures/calibration_curve.png](figures/calibration_curve.png) |
+| Reliability diagram | [figures/reliability_diagram.png](figures/reliability_diagram.png) |
+| Calibration metrics | [experiments/calibration_metrics.csv](experiments/calibration_metrics.csv) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
@@ -93,7 +98,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 10 | Failure matrix dashboard | [experiment10_failure_matrix.py](experiments/experiment10_failure_matrix.py) | Generate the model-by-condition heatmap |
 | 11 | Confidence collapse | [experiment11_confidence_collapse.py](experiments/experiment11_confidence_collapse.py) | Track confidence decline and wrong predictions under noise |
 | 12 | Refusal system | [experiment12_refusal_system.py](experiments/experiment12_refusal_system.py) | Measure accuracy, coverage, and refusal rate across confidence thresholds |
-| 13 | Reliability score framework | [experiment13_reliability_score.py](experiments/experiment13_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
+| 13 | Calibration analysis | [experiment13_calibration.py](experiments/experiment13_calibration.py) | Test whether predicted confidence matches observed correctness |
+| 14 | Reliability score framework | [experiment14_reliability_score.py](experiments/experiment14_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
 
 ---
 
@@ -115,6 +121,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 12 | [When models become confidently wrong](blogs/12-confidence-collapse.md) |
 | 13 | [When should a model say "I don't know"?](blogs/13-when-should-a-model-refuse.md) |
 | 14 | [Beyond accuracy: a reliability score for machine learning](blogs/14-model-reliability-score.md) |
+| 15 | [Does 90% confidence mean 90% correct?](blogs/15-confidence-calibration.md) |
 
 ---
 
@@ -149,7 +156,8 @@ python experiments/experiment9_multi_run_analysis.py
 python experiments/experiment10_failure_matrix.py
 python experiments/experiment11_confidence_collapse.py
 python experiments/experiment12_refusal_system.py
-python experiments/experiment13_reliability_score.py
+python experiments/experiment13_calibration.py
+python experiments/experiment14_reliability_score.py
 ```
 
 ---

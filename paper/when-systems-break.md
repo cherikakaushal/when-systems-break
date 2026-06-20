@@ -5,7 +5,7 @@
 
 Machine learning systems are commonly evaluated using clean-data accuracy, but deployed models often operate under degraded input conditions. Data can become noisy, incomplete, corrupted, or partially unavailable, causing models to behave differently from their reported benchmark performance. This paper studies how supervised learning models respond when the assumptions behind their inputs begin to fail.
 
-Using a controlled tabular classification setting, thirteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside coverage and refusal rate.
+Using a controlled tabular classification setting, fourteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, calibration, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside calibration, coverage, and refusal rate.
 
 The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions. A proposed Model Reliability Score then combines accuracy, robustness, confidence stability, refusal quality, and repeatability while retaining each component for auditability.
 
@@ -19,7 +19,7 @@ What happens when a machine learning system is asked to make predictions under d
 
 The goal of this project is to study model failure as a measurable process. Instead of treating failure as a single event, the experiments examine how performance changes as input quality declines. The project also studies whether confidence scores can help identify risky predictions before the system fails visibly.
 
-The final experiment asks whether these separate signals can be summarized in a transparent composite score without reducing reliability back to accuracy alone.
+The later experiments ask whether stated confidence matches empirical correctness and whether separate reliability signals can be summarized in a transparent composite score without reducing reliability back to accuracy alone.
 
 The research story progresses through three stages:
 
@@ -28,6 +28,8 @@ The research story progresses through three stages:
 2. Some failures can be detected through accuracy, confidence, and variance.
 
 3. Systems can respond by refusing predictions when reliability is too low.
+
+4. Reliability evidence can be combined while preserving the underlying measurements.
 
 ## 3. Experimental Setup
 
@@ -60,6 +62,7 @@ All experiments were implemented in Python using a controlled classification wor
 - Refusal rate
 - Feature importance
 - Model Reliability Score
+- Expected Calibration Error
 
 The experiments use clean data as a baseline and then introduce controlled degradation through noise injection, missing values, feature removal, and confidence thresholds. Later experiments compare multiple models and summarize failure patterns in aggregate visualizations.
 
@@ -147,7 +150,7 @@ Together, these visualizations provide a compact view of how different forms of 
 
 ## 9. Reliability Score Framework
 
-Clean accuracy answers only one part of the reliability question. Experiment 13 proposes a Model Reliability Score that combines five independently reported components across 30 seeded train-test splits:
+Clean accuracy answers only one part of the reliability question. Experiment 14 proposes a Model Reliability Score that combines five independently reported components across 30 seeded train-test splits:
 
 ```text
 Reliability = 0.30(Accuracy)
@@ -165,7 +168,29 @@ Logistic Regression achieved the highest composite score at 94.64, followed by S
 
 The weights are explicit research design choices rather than learned parameters. The score supports comparison within this benchmark; it is not a universal or externally validated safety rating. Every component remains visible because two models with similar totals may have materially different failure profiles.
 
-## 10. Key Findings
+## 10. Confidence Calibration
+
+Confidence calibration tests whether predicted certainty corresponds to observed outcomes. A calibrated set of predictions with 90% confidence should be correct approximately 90% of the time.
+
+Experiment 13 pools predictions from 30 seeded train-test splits and divides them into ten equal-width confidence bins. Expected Calibration Error is the sample-weighted absolute difference between mean confidence and observed correctness:
+
+```text
+ECE = sum((bin count / total count) * abs(bin accuracy - bin confidence))
+```
+
+![Calibration Curves](figures/calibration_curve.png)
+
+Logistic Regression achieved 1.13% ECE on clean inputs and 0.71% under noise. SVM produced 1.22% and 1.66%, respectively. Random Forest clean ECE was 2.53%, but its noisy ECE increased to 7.30% as confidence became conservative relative to its observed accuracy.
+
+The Decision Tree was the clearest case of miscalibration. It assigned 100% confidence to every pooled prediction, while observed accuracy was 92.92% on clean inputs and 88.27% under noise. Its ECE therefore increased from 7.08% to 11.73%.
+
+![Reliability Diagrams](figures/reliability_diagram.png)
+
+In the 90-100% confidence bin, Logistic Regression averaged 99.20% confidence and 99.36% correctness on clean data. This is close to calibrated. The Decision Tree occupied the same nominal bin at 100% confidence but achieved only 92.92% correctness. These results show why confidence values must be empirically validated rather than interpreted at face value.
+
+ECE depends on the number and placement of bins and can hide localized errors. The experiment therefore exports complete bin-level data and reports reliability diagrams alongside the scalar metric.
+
+## 11. Key Findings
 
 1. Clean-data accuracy is not enough to evaluate reliability.
 
@@ -187,7 +212,9 @@ The weights are explicit research design choices rather than learned parameters.
 
 10. Composite reliability scores are useful only when their component metrics and assumptions remain auditable.
 
-## 11. Limitations
+11. High confidence does not guarantee calibration; stated probabilities must be compared with observed correctness.
+
+## 12. Limitations
 
 The experiments were conducted on a limited tabular dataset in a controlled environment. This makes failure patterns easier to isolate, but it does not capture the full complexity of production machine learning systems.
 
@@ -197,7 +224,9 @@ Confidence scores are model-dependent and may require calibration before being u
 
 The proposed Model Reliability Score is sensitive to its weights, degradation definitions, dataset, and normalization choices. It has not been validated against production incidents or external benchmarks and should not be interpreted as a certified measure of model safety.
 
-## 12. Future Work
+Expected Calibration Error is also sensitive to bin count, bin boundaries, and sample size. Equal-width bins can contain very different numbers of predictions, especially when models concentrate confidence near one. Calibration conclusions should therefore consider the diagrams and bin counts in addition to ECE.
+
+## 13. Future Work
 
 Future work includes:
 
@@ -211,8 +240,10 @@ Future work includes:
 - Interactive robustness dashboard expansion
 - Reliability-weight sensitivity analysis
 - External validation of the composite score across datasets
+- Temperature scaling, isotonic regression, and Platt scaling comparisons
+- Adaptive-bin and classwise calibration metrics
 
-## 13. References
+## 14. References
 
 1. Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 2011.
 
