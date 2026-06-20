@@ -1,5 +1,12 @@
 # Figures
 
+| Figure | Description |
+|---|---|
+| `reliability_scores.png` | Composite reliability ranking across four models |
+| `failure_matrix.png` | Accuracy under clean, noisy, missing, and feature-removal conditions |
+| `confidence_collapse.png` | Confidence and errors under increasing noise |
+| `accuracy_vs_coverage.png` | Selective accuracy versus prediction coverage |
+
 Project-level figures used by the README and research report.
 
 | Figure | Description |

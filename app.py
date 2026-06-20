@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import numpy as np
 import pandas as pd
 import streamlit as st
@@ -40,6 +42,13 @@ def train_model():
     )
     model.fit(X_train, y_train)
     return model, X_train.mean(), X_train.std().replace(0, 1)
+
+
+@st.cache_data
+def load_reliability_score():
+    score_path = Path(__file__).resolve().parent / "experiments" / "reliability_scores.csv"
+    scores = pd.read_csv(score_path).set_index("Model")
+    return float(scores.loc["Logistic Regression", "Reliability Score"])
 
 
 def initialize_state(X):
@@ -88,6 +97,7 @@ def estimate_failure_risk(confidence, noise_level, missing_ratio, operation_coun
 
 X_default, y_default, target_names = load_default_data()
 model, train_mean, train_std = train_model()
+model_reliability = load_reliability_score()
 initialize_state(X_default)
 
 st.title("When Systems Break")
@@ -144,10 +154,11 @@ with right:
         len(st.session_state.operations),
     )
 
-    metric_cols = st.columns(3)
+    metric_cols = st.columns(4)
     metric_cols[0].metric("Prediction", predicted_label)
     metric_cols[1].metric("Confidence", f"{confidence:.1%}")
     metric_cols[2].metric("Failure Risk", f"{failure_risk:.1%}")
+    metric_cols[3].metric("Model Reliability", f"{model_reliability:.1f}/100")
 
     st.subheader("Current Input")
     st.dataframe(X_input, use_container_width=True)

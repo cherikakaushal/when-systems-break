@@ -1,10 +1,23 @@
 # When Systems Break
 
-**An experimental framework for studying machine learning failure under noise, missing data, feature degradation, confidence collapse, and refusal-based reliability.**
+**An experimental framework for measuring machine learning reliability under noise, missing data, feature degradation, confidence collapse, and refusal-based decision-making.**
 
 [Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
 
-![Failure Matrix](figures/failure_matrix.png)
+![Model Reliability Score](figures/reliability_scores.png)
+
+## Model Reliability Score
+
+A single accuracy value hides how a model behaves when conditions change. Experiment 13 introduces a transparent composite score built from five measured components.
+
+| Model | Reliability Score | Clean Accuracy | Robustness | Confidence Stability | Refusal Quality | Repeatability |
+|---|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | **94.64** | 97.98 | 99.06 | 98.97 | 91.68 | 72.95 |
+| SVM | **94.08** | 97.60 | 99.26 | 98.78 | 91.26 | 69.13 |
+| Random Forest | **92.46** | 95.99 | 99.51 | 94.28 | 89.86 | 66.69 |
+| Decision Tree | **77.46** | 92.92 | 95.76 | 89.97 | 50.00 | 21.47 |
+
+The proposed score weights clean accuracy (30%), robustness (25%), confidence stability (15%), refusal quality (20%), and repeatability (10%). It is an experimental comparison framework, not a universal or externally validated safety score.
 
 ---
 
@@ -28,6 +41,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 4. Can confidence scores warn us before accuracy collapses?
 5. Is missing information more harmful than noisy information?
 6. When should a model refuse to make a prediction?
+7. Can multiple reliability signals be combined without hiding their tradeoffs?
 
 ---
 
@@ -39,6 +53,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Failure matrix heatmap for model-by-condition comparison
 - Confidence collapse study using `predict_proba()`
 - Refusal-threshold analysis for safer model behavior
+- Proposed five-component Model Reliability Score across 30 seeded runs
 - Streamlit demo for interactively injecting failure conditions
 - Research-style paper with generated figures and PDF export
 
@@ -52,6 +67,9 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Failure matrix heatmap | [figures/failure_matrix.png](figures/failure_matrix.png) |
 | Confidence collapse plot | [figures/confidence_collapse.png](figures/confidence_collapse.png) |
 | Accuracy vs coverage plot | [figures/accuracy_vs_coverage.png](figures/accuracy_vs_coverage.png) |
+| Reliability score plot | [figures/reliability_scores.png](figures/reliability_scores.png) |
+| Reliability score CSV | [experiments/reliability_scores.csv](experiments/reliability_scores.csv) |
+| Reliability run-level audit data | [experiments/reliability_run_metrics.csv](experiments/reliability_run_metrics.csv) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
@@ -75,6 +93,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 10 | Failure matrix dashboard | [experiment10_failure_matrix.py](experiments/experiment10_failure_matrix.py) | Generate the model-by-condition heatmap |
 | 11 | Confidence collapse | [experiment11_confidence_collapse.py](experiments/experiment11_confidence_collapse.py) | Track confidence decline and wrong predictions under noise |
 | 12 | Refusal system | [experiment12_refusal_system.py](experiments/experiment12_refusal_system.py) | Measure accuracy, coverage, and refusal rate across confidence thresholds |
+| 13 | Reliability score framework | [experiment13_reliability_score.py](experiments/experiment13_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
 
 ---
 
@@ -95,6 +114,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 11 | [Why one accuracy score is not enough](blogs/11-statistical-robustness.md) |
 | 12 | [When models become confidently wrong](blogs/12-confidence-collapse.md) |
 | 13 | [When should a model say "I don't know"?](blogs/13-when-should-a-model-refuse.md) |
+| 14 | [Beyond accuracy: a reliability score for machine learning](blogs/14-model-reliability-score.md) |
 
 ---
 
@@ -129,6 +149,7 @@ python experiments/experiment9_multi_run_analysis.py
 python experiments/experiment10_failure_matrix.py
 python experiments/experiment11_confidence_collapse.py
 python experiments/experiment12_refusal_system.py
+python experiments/experiment13_reliability_score.py
 ```
 
 ---
@@ -167,4 +188,4 @@ when-systems-break/
 
 Machine learning systems often fail gradually before they fail obviously.
 
-By studying noise, missing information, feature degradation, statistical variance, confidence collapse, and refusal thresholds, this project shows why robustness testing is as important as clean-data accuracy.
+By studying noise, missing information, feature degradation, statistical variance, confidence collapse, and refusal thresholds, this project shows why reliability must be measured as a system property rather than reduced to one clean-data score.

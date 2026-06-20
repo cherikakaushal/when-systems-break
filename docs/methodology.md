@@ -39,6 +39,29 @@ The primary metrics are:
 - wrong prediction count
 - coverage
 - refusal rate
+- Model Reliability Score and its five component scores
+
+## Reliability Score Framework
+
+Experiment 13 proposes a composite score for comparing models within this controlled benchmark:
+
+```text
+Reliability = 0.30(Accuracy)
+            + 0.25(Robustness)
+            + 0.15(Confidence Stability)
+            + 0.20(Refusal Quality)
+            + 0.10(Repeatability)
+```
+
+- **Accuracy** is mean clean-data accuracy across 30 seeded splits.
+- **Robustness** is mean degraded accuracy divided by mean clean accuracy, capped at 100.
+- **Confidence Stability** is one minus the mean absolute gap between confidence and accuracy across clean, noisy, missing, and feature-removal conditions.
+- **Refusal Quality** is the ROC AUC obtained when prediction confidence ranks correct predictions above incorrect predictions. It measures whether confidence can support selective refusal.
+- **Repeatability** penalizes mean run-to-run standard deviation against a declared five-percentage-point tolerance.
+
+Every component is scaled from 0 to 100. The weights are explicit design choices, not learned parameters. The score is intended for within-project model comparison and has not been externally validated as a general-purpose safety metric.
+
+The generated `reliability_run_metrics.csv` retains each seed, model, condition, accuracy, and mean confidence observation used to build the summary.
 
 ## Interpretation
 

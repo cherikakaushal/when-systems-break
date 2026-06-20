@@ -17,3 +17,4 @@ The blog series documents the project as a research narrative, moving from simpl
 | 11 | [Why one accuracy score is not enough](11-statistical-robustness.md) | Variance and repeatability |
 | 12 | [When models become confidently wrong](12-confidence-collapse.md) | Confidence collapse |
 | 13 | [When should a model say "I don't know"?](13-when-should-a-model-refuse.md) | Refusal thresholds |
+| 14 | [Beyond accuracy: a reliability score for machine learning](14-model-reliability-score.md) | Composite reliability measurement |

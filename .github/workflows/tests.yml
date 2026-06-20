@@ -27,3 +27,6 @@ jobs:
 
       - name: Run failure matrix
         run: python experiments/experiment10_failure_matrix.py
+
+      - name: Run reliability score framework
+        run: python experiments/experiment13_reliability_score.py

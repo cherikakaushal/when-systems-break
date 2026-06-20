@@ -5,9 +5,9 @@
 
 Machine learning systems are commonly evaluated using clean-data accuracy, but deployed models often operate under degraded input conditions. Data can become noisy, incomplete, corrupted, or partially unavailable, causing models to behave differently from their reported benchmark performance. This paper studies how supervised learning models respond when the assumptions behind their inputs begin to fail.
 
-Using a controlled tabular classification setting, twelve experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside coverage and refusal rate.
+Using a controlled tabular classification setting, thirteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside coverage and refusal rate.
 
-The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions.
+The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions. A proposed Model Reliability Score then combines accuracy, robustness, confidence stability, refusal quality, and repeatability while retaining each component for auditability.
 
 ## 2. Introduction
 
@@ -18,6 +18,8 @@ This raises a practical reliability question:
 What happens when a machine learning system is asked to make predictions under degraded information?
 
 The goal of this project is to study model failure as a measurable process. Instead of treating failure as a single event, the experiments examine how performance changes as input quality declines. The project also studies whether confidence scores can help identify risky predictions before the system fails visibly.
+
+The final experiment asks whether these separate signals can be summarized in a transparent composite score without reducing reliability back to accuracy alone.
 
 The research story progresses through three stages:
 
@@ -57,6 +59,7 @@ All experiments were implemented in Python using a controlled classification wor
 - Coverage
 - Refusal rate
 - Feature importance
+- Model Reliability Score
 
 The experiments use clean data as a baseline and then introduce controlled degradation through noise injection, missing values, feature removal, and confidence thresholds. Later experiments compare multiple models and summarize failure patterns in aggregate visualizations.
 
@@ -142,7 +145,27 @@ The project also includes a broader failure-pattern comparison.
 
 Together, these visualizations provide a compact view of how different forms of degradation affect model reliability.
 
-## 9. Key Findings
+## 9. Reliability Score Framework
+
+Clean accuracy answers only one part of the reliability question. Experiment 13 proposes a Model Reliability Score that combines five independently reported components across 30 seeded train-test splits:
+
+```text
+Reliability = 0.30(Accuracy)
+            + 0.25(Robustness)
+            + 0.15(Confidence Stability)
+            + 0.20(Refusal Quality)
+            + 0.10(Repeatability)
+```
+
+Accuracy is mean clean-data performance. Robustness measures retention from clean to degraded conditions. Confidence stability measures alignment between mean confidence and observed accuracy. Refusal quality uses ROC AUC to test whether confidence ranks correct predictions above errors. Repeatability penalizes run-to-run standard deviation against a declared five-percentage-point tolerance.
+
+![Model Reliability Score](figures/reliability_scores.png)
+
+Logistic Regression achieved the highest composite score at 94.64, followed by SVM at 94.08, Random Forest at 92.46, and Decision Tree at 77.46. The Decision Tree's lower score exposes behavior hidden by its 92.92 clean-accuracy component: low repeatability and uninformative confidence for error-based refusal.
+
+The weights are explicit research design choices rather than learned parameters. The score supports comparison within this benchmark; it is not a universal or externally validated safety rating. Every component remains visible because two models with similar totals may have materially different failure profiles.
+
+## 10. Key Findings
 
 1. Clean-data accuracy is not enough to evaluate reliability.
 
@@ -162,7 +185,9 @@ Together, these visualizations provide a compact view of how different forms of 
 
 9. A safer machine learning system should know when not to answer.
 
-## 10. Limitations
+10. Composite reliability scores are useful only when their component metrics and assumptions remain auditable.
+
+## 11. Limitations
 
 The experiments were conducted on a limited tabular dataset in a controlled environment. This makes failure patterns easier to isolate, but it does not capture the full complexity of production machine learning systems.
 
@@ -170,7 +195,9 @@ The degradation methods are also simplified. Gaussian noise, missing-value simul
 
 Confidence scores are model-dependent and may require calibration before being used as operational reliability signals. The refusal system is therefore a prototype for studying abstention behavior, not a complete production safety mechanism.
 
-## 11. Future Work
+The proposed Model Reliability Score is sensitive to its weights, degradation definitions, dataset, and normalization choices. It has not been validated against production incidents or external benchmarks and should not be interpreted as a certified measure of model safety.
+
+## 12. Future Work
 
 Future work includes:
 
@@ -182,8 +209,10 @@ Future work includes:
 - Human-in-the-loop review workflows
 - Cost-sensitive refusal policies
 - Interactive robustness dashboard expansion
+- Reliability-weight sensitivity analysis
+- External validation of the composite score across datasets
 
-## 12. References
+## 13. References
 
 1. Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 2011.
 
@@ -198,3 +227,5 @@ Future work includes:
 6. Cortes, C. and Vapnik, V. Support-vector networks. Machine Learning, 1995.
 
 7. Geifman, Y. and El-Yaniv, R. Selective Classification for Deep Neural Networks. Advances in Neural Information Processing Systems, 2017.
+
+8. Guo, C., Pleiss, G., Sun, Y., and Weinberger, K. Q. On Calibration of Modern Neural Networks. International Conference on Machine Learning, 2017.

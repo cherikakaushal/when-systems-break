@@ -1,0 +1,481 @@
+Seed,Model,Condition,Accuracy,Mean Confidence
+0,Logistic Regression,Clean,0.982456,0.968774
+0,Logistic Regression,Noise,0.95614,0.961724
+0,Logistic Regression,Missing,0.973684,0.958311
+0,Logistic Regression,Feature Removal,0.973684,0.963911
+0,Decision Tree,Clean,0.938596,1.0
+0,Decision Tree,Noise,0.877193,1.0
+0,Decision Tree,Missing,0.868421,1.0
+0,Decision Tree,Feature Removal,0.921053,1.0
+0,Random Forest,Clean,0.947368,0.938947
+0,Random Forest,Noise,0.938596,0.887807
+0,Random Forest,Missing,0.929825,0.866053
+0,Random Forest,Feature Removal,0.95614,0.923684
+0,SVM,Clean,0.964912,0.959544
+0,SVM,Noise,0.947368,0.947753
+0,SVM,Missing,0.95614,0.95016
+0,SVM,Feature Removal,0.95614,0.961084
+1,Logistic Regression,Clean,0.991228,0.971442
+1,Logistic Regression,Noise,0.964912,0.971427
+1,Logistic Regression,Missing,0.973684,0.949938
+1,Logistic Regression,Feature Removal,0.982456,0.966423
+1,Decision Tree,Clean,0.964912,1.0
+1,Decision Tree,Noise,0.859649,1.0
+1,Decision Tree,Missing,0.763158,1.0
+1,Decision Tree,Feature Removal,0.912281,1.0
+1,Random Forest,Clean,0.947368,0.942807
+1,Random Forest,Noise,0.938596,0.887412
+1,Random Forest,Missing,0.947368,0.867368
+1,Random Forest,Feature Removal,0.95614,0.925395
+1,SVM,Clean,0.982456,0.960512
+1,SVM,Noise,0.964912,0.950677
+1,SVM,Missing,0.973684,0.944626
+1,SVM,Feature Removal,0.982456,0.955449
+2,Logistic Regression,Clean,0.982456,0.970625
+2,Logistic Regression,Noise,0.973684,0.973736
+2,Logistic Regression,Missing,0.982456,0.942692
+2,Logistic Regression,Feature Removal,0.991228,0.969797
+2,Decision Tree,Clean,0.938596,1.0
+2,Decision Tree,Noise,0.885965,1.0
+2,Decision Tree,Missing,0.912281,1.0
+2,Decision Tree,Feature Removal,0.938596,1.0
+2,Random Forest,Clean,0.982456,0.94614
+2,Random Forest,Noise,0.973684,0.890175
+2,Random Forest,Missing,0.973684,0.855482
+2,Random Forest,Feature Removal,0.964912,0.931272
+2,SVM,Clean,0.982456,0.97218
+2,SVM,Noise,0.991228,0.968562
+2,SVM,Missing,0.982456,0.952831
+2,SVM,Feature Removal,0.973684,0.975946
+3,Logistic Regression,Clean,0.973684,0.967817
+3,Logistic Regression,Noise,0.982456,0.963836
+3,Logistic Regression,Missing,0.95614,0.954675
+3,Logistic Regression,Feature Removal,0.982456,0.964417
+3,Decision Tree,Clean,0.921053,1.0
+3,Decision Tree,Noise,0.780702,1.0
+3,Decision Tree,Missing,0.789474,1.0
+3,Decision Tree,Feature Removal,0.894737,1.0
+3,Random Forest,Clean,0.973684,0.937675
+3,Random Forest,Noise,0.95614,0.850088
+3,Random Forest,Missing,0.964912,0.861447
+3,Random Forest,Feature Removal,0.95614,0.922456
+3,SVM,Clean,0.973684,0.967059
+3,SVM,Noise,0.973684,0.952524
+3,SVM,Missing,0.964912,0.95307
+3,SVM,Feature Removal,0.964912,0.961787
+4,Logistic Regression,Clean,0.973684,0.978982
+4,Logistic Regression,Noise,0.964912,0.969232
+4,Logistic Regression,Missing,0.964912,0.965599
+4,Logistic Regression,Feature Removal,0.973684,0.975193
+4,Decision Tree,Clean,0.885965,1.0
+4,Decision Tree,Noise,0.947368,1.0
+4,Decision Tree,Missing,0.780702,1.0
+4,Decision Tree,Feature Removal,0.929825,1.0
+4,Random Forest,Clean,0.973684,0.939167
+4,Random Forest,Noise,0.964912,0.879079
+4,Random Forest,Missing,0.973684,0.861667
+4,Random Forest,Feature Removal,0.973684,0.922763
+4,SVM,Clean,0.95614,0.969055
+4,SVM,Noise,0.95614,0.950424
+4,SVM,Missing,0.947368,0.960336
+4,SVM,Feature Removal,0.95614,0.967806
+5,Logistic Regression,Clean,0.982456,0.970206
+5,Logistic Regression,Noise,0.95614,0.963953
+5,Logistic Regression,Missing,0.964912,0.9493
+5,Logistic Regression,Feature Removal,0.982456,0.965731
+5,Decision Tree,Clean,0.921053,1.0
+5,Decision Tree,Noise,0.868421,1.0
+5,Decision Tree,Missing,0.868421,1.0
+5,Decision Tree,Feature Removal,0.921053,1.0
+5,Random Forest,Clean,0.964912,0.942675
+5,Random Forest,Noise,0.947368,0.878202
+5,Random Forest,Missing,0.95614,0.877763
+5,Random Forest,Feature Removal,0.964912,0.919956
+5,SVM,Clean,0.982456,0.954678
+5,SVM,Noise,0.95614,0.945768
+5,SVM,Missing,0.973684,0.941097
+5,SVM,Feature Removal,0.991228,0.950711
+6,Logistic Regression,Clean,0.991228,0.98096
+6,Logistic Regression,Noise,0.982456,0.982065
+6,Logistic Regression,Missing,0.982456,0.957491
+6,Logistic Regression,Feature Removal,0.991228,0.976264
+6,Decision Tree,Clean,0.964912,1.0
+6,Decision Tree,Noise,0.877193,1.0
+6,Decision Tree,Missing,0.877193,1.0
+6,Decision Tree,Feature Removal,0.95614,1.0
+6,Random Forest,Clean,0.973684,0.964123
+6,Random Forest,Noise,0.973684,0.909035
+6,Random Forest,Missing,0.964912,0.880439
+6,Random Forest,Feature Removal,0.973684,0.942719
+6,SVM,Clean,0.982456,0.978645
+6,SVM,Noise,0.982456,0.976651
+6,SVM,Missing,0.973684,0.969628
+6,SVM,Feature Removal,0.973684,0.981047
+7,Logistic Regression,Clean,0.964912,0.96823
+7,Logistic Regression,Noise,0.964912,0.95382
+7,Logistic Regression,Missing,0.973684,0.953913
+7,Logistic Regression,Feature Removal,0.973684,0.965658
+7,Decision Tree,Clean,0.973684,1.0
+7,Decision Tree,Noise,0.885965,1.0
+7,Decision Tree,Missing,0.894737,1.0
+7,Decision Tree,Feature Removal,0.95614,1.0
+7,Random Forest,Clean,0.95614,0.929868
+7,Random Forest,Noise,0.947368,0.871491
+7,Random Forest,Missing,0.964912,0.859693
+7,Random Forest,Feature Removal,0.973684,0.909781
+7,SVM,Clean,0.95614,0.957428
+7,SVM,Noise,0.95614,0.937735
+7,SVM,Missing,0.973684,0.954288
+7,SVM,Feature Removal,0.95614,0.952253
+8,Logistic Regression,Clean,0.973684,0.964736
+8,Logistic Regression,Noise,0.964912,0.962485
+8,Logistic Regression,Missing,0.95614,0.953078
+8,Logistic Regression,Feature Removal,0.964912,0.964898
+8,Decision Tree,Clean,0.894737,1.0
+8,Decision Tree,Noise,0.824561,1.0
+8,Decision Tree,Missing,0.877193,1.0
+8,Decision Tree,Feature Removal,0.938596,1.0
+8,Random Forest,Clean,0.973684,0.932939
+8,Random Forest,Noise,0.947368,0.887105
+8,Random Forest,Missing,0.95614,0.852544
+8,Random Forest,Feature Removal,0.973684,0.922939
+8,SVM,Clean,0.982456,0.957992
+8,SVM,Noise,0.973684,0.959321
+8,SVM,Missing,0.947368,0.95576
+8,SVM,Feature Removal,0.973684,0.962979
+9,Logistic Regression,Clean,1.0,0.972872
+9,Logistic Regression,Noise,0.982456,0.971592
+9,Logistic Regression,Missing,0.973684,0.955606
+9,Logistic Regression,Feature Removal,0.991228,0.968369
+9,Decision Tree,Clean,0.929825,1.0
+9,Decision Tree,Noise,0.824561,1.0
+9,Decision Tree,Missing,0.929825,1.0
+9,Decision Tree,Feature Removal,0.95614,1.0
+9,Random Forest,Clean,0.95614,0.940965
+9,Random Forest,Noise,0.95614,0.856535
+9,Random Forest,Missing,0.95614,0.869254
+9,Random Forest,Feature Removal,0.973684,0.92386
+9,SVM,Clean,0.982456,0.977416
+9,SVM,Noise,0.991228,0.96421
+9,SVM,Missing,0.973684,0.964043
+9,SVM,Feature Removal,0.982456,0.972462
+10,Logistic Regression,Clean,0.964912,0.9568
+10,Logistic Regression,Noise,0.982456,0.969265
+10,Logistic Regression,Missing,0.947368,0.934693
+10,Logistic Regression,Feature Removal,0.982456,0.950792
+10,Decision Tree,Clean,0.947368,1.0
+10,Decision Tree,Noise,0.842105,1.0
+10,Decision Tree,Missing,0.824561,1.0
+10,Decision Tree,Feature Removal,0.894737,1.0
+10,Random Forest,Clean,0.947368,0.922456
+10,Random Forest,Noise,0.95614,0.874693
+10,Random Forest,Missing,0.912281,0.849079
+10,Random Forest,Feature Removal,0.903509,0.899737
+10,SVM,Clean,0.964912,0.943041
+10,SVM,Noise,0.964912,0.942494
+10,SVM,Missing,0.929825,0.929826
+10,SVM,Feature Removal,0.95614,0.941677
+11,Logistic Regression,Clean,0.95614,0.966911
+11,Logistic Regression,Noise,0.938596,0.969657
+11,Logistic Regression,Missing,0.947368,0.950223
+11,Logistic Regression,Feature Removal,0.95614,0.96308
+11,Decision Tree,Clean,0.885965,1.0
+11,Decision Tree,Noise,0.850877,1.0
+11,Decision Tree,Missing,0.824561,1.0
+11,Decision Tree,Feature Removal,0.929825,1.0
+11,Random Forest,Clean,0.964912,0.947719
+11,Random Forest,Noise,0.938596,0.891447
+11,Random Forest,Missing,0.964912,0.867982
+11,Random Forest,Feature Removal,0.947368,0.927412
+11,SVM,Clean,0.95614,0.965689
+11,SVM,Noise,0.947368,0.95141
+11,SVM,Missing,0.95614,0.961587
+11,SVM,Feature Removal,0.95614,0.965889
+12,Logistic Regression,Clean,0.991228,0.958285
+12,Logistic Regression,Noise,0.973684,0.956152
+12,Logistic Regression,Missing,0.964912,0.940002
+12,Logistic Regression,Feature Removal,0.982456,0.953992
+12,Decision Tree,Clean,0.877193,1.0
+12,Decision Tree,Noise,0.877193,1.0
+12,Decision Tree,Missing,0.842105,1.0
+12,Decision Tree,Feature Removal,0.903509,1.0
+12,Random Forest,Clean,0.964912,0.919561
+12,Random Forest,Noise,0.938596,0.868728
+12,Random Forest,Missing,0.964912,0.849342
+12,Random Forest,Feature Removal,0.95614,0.908553
+12,SVM,Clean,0.964912,0.962601
+12,SVM,Noise,0.973684,0.950472
+12,SVM,Missing,0.964912,0.945044
+12,SVM,Feature Removal,0.964912,0.95961
+13,Logistic Regression,Clean,0.973684,0.967299
+13,Logistic Regression,Noise,0.964912,0.963897
+13,Logistic Regression,Missing,0.982456,0.945716
+13,Logistic Regression,Feature Removal,0.964912,0.967349
+13,Decision Tree,Clean,0.947368,1.0
+13,Decision Tree,Noise,0.929825,1.0
+13,Decision Tree,Missing,0.877193,1.0
+13,Decision Tree,Feature Removal,0.947368,1.0
+13,Random Forest,Clean,0.929825,0.933991
+13,Random Forest,Noise,0.929825,0.895307
+13,Random Forest,Missing,0.938596,0.85057
+13,Random Forest,Feature Removal,0.95614,0.920088
+13,SVM,Clean,0.991228,0.963755
+13,SVM,Noise,0.973684,0.955503
+13,SVM,Missing,0.964912,0.948351
+13,SVM,Feature Removal,0.982456,0.958357
+14,Logistic Regression,Clean,0.991228,0.969351
+14,Logistic Regression,Noise,0.982456,0.976601
+14,Logistic Regression,Missing,0.973684,0.957749
+14,Logistic Regression,Feature Removal,0.991228,0.966491
+14,Decision Tree,Clean,0.938596,1.0
+14,Decision Tree,Noise,0.894737,1.0
+14,Decision Tree,Missing,0.921053,1.0
+14,Decision Tree,Feature Removal,0.912281,1.0
+14,Random Forest,Clean,0.973684,0.941535
+14,Random Forest,Noise,0.964912,0.875526
+14,Random Forest,Missing,0.973684,0.875439
+14,Random Forest,Feature Removal,0.95614,0.921009
+14,SVM,Clean,0.982456,0.965395
+14,SVM,Noise,0.973684,0.96042
+14,SVM,Missing,0.95614,0.958334
+14,SVM,Feature Removal,0.982456,0.961616
+15,Logistic Regression,Clean,0.991228,0.970692
+15,Logistic Regression,Noise,0.991228,0.964047
+15,Logistic Regression,Missing,0.973684,0.959484
+15,Logistic Regression,Feature Removal,0.982456,0.967736
+15,Decision Tree,Clean,0.95614,1.0
+15,Decision Tree,Noise,0.921053,1.0
+15,Decision Tree,Missing,0.921053,1.0
+15,Decision Tree,Feature Removal,0.938596,1.0
+15,Random Forest,Clean,0.964912,0.937632
+15,Random Forest,Noise,0.95614,0.877193
+15,Random Forest,Missing,0.95614,0.876842
+15,Random Forest,Feature Removal,0.964912,0.9175
+15,SVM,Clean,0.973684,0.969735
+15,SVM,Noise,1.0,0.955007
+15,SVM,Missing,0.95614,0.955716
+15,SVM,Feature Removal,0.973684,0.967508
+16,Logistic Regression,Clean,0.991228,0.969184
+16,Logistic Regression,Noise,0.973684,0.966161
+16,Logistic Regression,Missing,0.991228,0.953526
+16,Logistic Regression,Feature Removal,0.982456,0.965864
+16,Decision Tree,Clean,0.894737,1.0
+16,Decision Tree,Noise,0.885965,1.0
+16,Decision Tree,Missing,0.868421,1.0
+16,Decision Tree,Feature Removal,0.912281,1.0
+16,Random Forest,Clean,0.947368,0.944737
+16,Random Forest,Noise,0.947368,0.881886
+16,Random Forest,Missing,0.938596,0.869912
+16,Random Forest,Feature Removal,0.947368,0.929518
+16,SVM,Clean,0.982456,0.964834
+16,SVM,Noise,0.982456,0.956924
+16,SVM,Missing,0.964912,0.957658
+16,SVM,Feature Removal,0.973684,0.967395
+17,Logistic Regression,Clean,0.982456,0.975024
+17,Logistic Regression,Noise,0.973684,0.971898
+17,Logistic Regression,Missing,0.95614,0.961555
+17,Logistic Regression,Feature Removal,0.973684,0.973595
+17,Decision Tree,Clean,0.964912,1.0
+17,Decision Tree,Noise,0.938596,1.0
+17,Decision Tree,Missing,0.868421,1.0
+17,Decision Tree,Feature Removal,0.991228,1.0
+17,Random Forest,Clean,0.991228,0.9475
+17,Random Forest,Noise,0.982456,0.886404
+17,Random Forest,Missing,0.95614,0.862851
+17,Random Forest,Feature Removal,0.991228,0.932763
+17,SVM,Clean,1.0,0.975983
+17,SVM,Noise,0.991228,0.963235
+17,SVM,Missing,0.982456,0.964659
+17,SVM,Feature Removal,1.0,0.972098
+18,Logistic Regression,Clean,0.973684,0.960789
+18,Logistic Regression,Noise,0.938596,0.96091
+18,Logistic Regression,Missing,0.947368,0.941564
+18,Logistic Regression,Feature Removal,0.95614,0.959035
+18,Decision Tree,Clean,0.921053,1.0
+18,Decision Tree,Noise,0.859649,1.0
+18,Decision Tree,Missing,0.868421,1.0
+18,Decision Tree,Feature Removal,0.929825,1.0
+18,Random Forest,Clean,0.947368,0.926667
+18,Random Forest,Noise,0.938596,0.873947
+18,Random Forest,Missing,0.938596,0.862851
+18,Random Forest,Feature Removal,0.938596,0.919693
+18,SVM,Clean,0.95614,0.960152
+18,SVM,Noise,0.947368,0.956434
+18,SVM,Missing,0.938596,0.953717
+18,SVM,Feature Removal,0.95614,0.965486
+19,Logistic Regression,Clean,0.964912,0.975423
+19,Logistic Regression,Noise,0.964912,0.971366
+19,Logistic Regression,Missing,0.982456,0.936711
+19,Logistic Regression,Feature Removal,0.964912,0.969399
+19,Decision Tree,Clean,0.938596,1.0
+19,Decision Tree,Noise,0.921053,1.0
+19,Decision Tree,Missing,0.903509,1.0
+19,Decision Tree,Feature Removal,0.912281,1.0
+19,Random Forest,Clean,0.991228,0.938202
+19,Random Forest,Noise,0.982456,0.876096
+19,Random Forest,Missing,0.982456,0.859298
+19,Random Forest,Feature Removal,0.982456,0.916228
+19,SVM,Clean,0.973684,0.973159
+19,SVM,Noise,0.982456,0.961719
+19,SVM,Missing,0.964912,0.949294
+19,SVM,Feature Removal,0.973684,0.966737
+20,Logistic Regression,Clean,0.982456,0.969979
+20,Logistic Regression,Noise,0.947368,0.964958
+20,Logistic Regression,Missing,0.964912,0.948593
+20,Logistic Regression,Feature Removal,0.982456,0.962443
+20,Decision Tree,Clean,0.938596,1.0
+20,Decision Tree,Noise,0.921053,1.0
+20,Decision Tree,Missing,0.850877,1.0
+20,Decision Tree,Feature Removal,0.912281,1.0
+20,Random Forest,Clean,0.95614,0.935307
+20,Random Forest,Noise,0.964912,0.897763
+20,Random Forest,Missing,0.947368,0.851009
+20,Random Forest,Feature Removal,0.95614,0.909737
+20,SVM,Clean,0.973684,0.971822
+20,SVM,Noise,0.964912,0.953813
+20,SVM,Missing,0.95614,0.959153
+20,SVM,Feature Removal,0.964912,0.964218
+21,Logistic Regression,Clean,0.991228,0.96645
+21,Logistic Regression,Noise,0.991228,0.961539
+21,Logistic Regression,Missing,1.0,0.952524
+21,Logistic Regression,Feature Removal,0.973684,0.962338
+21,Decision Tree,Clean,0.95614,1.0
+21,Decision Tree,Noise,0.929825,1.0
+21,Decision Tree,Missing,0.894737,1.0
+21,Decision Tree,Feature Removal,0.938596,1.0
+21,Random Forest,Clean,0.947368,0.929956
+21,Random Forest,Noise,0.95614,0.859342
+21,Random Forest,Missing,0.947368,0.854868
+21,Random Forest,Feature Removal,0.973684,0.902939
+21,SVM,Clean,0.991228,0.962477
+21,SVM,Noise,0.973684,0.942063
+21,SVM,Missing,0.982456,0.948072
+21,SVM,Feature Removal,0.973684,0.953382
+22,Logistic Regression,Clean,0.947368,0.950396
+22,Logistic Regression,Noise,0.938596,0.96809
+22,Logistic Regression,Missing,0.938596,0.944661
+22,Logistic Regression,Feature Removal,0.947368,0.951071
+22,Decision Tree,Clean,0.868421,1.0
+22,Decision Tree,Noise,0.859649,1.0
+22,Decision Tree,Missing,0.780702,1.0
+22,Decision Tree,Feature Removal,0.780702,1.0
+22,Random Forest,Clean,0.947368,0.906623
+22,Random Forest,Noise,0.95614,0.866228
+22,Random Forest,Missing,0.921053,0.835044
+22,Random Forest,Feature Removal,0.921053,0.881667
+22,SVM,Clean,0.938596,0.946808
+22,SVM,Noise,0.938596,0.947424
+22,SVM,Missing,0.929825,0.941138
+22,SVM,Feature Removal,0.921053,0.952768
+23,Logistic Regression,Clean,0.982456,0.967905
+23,Logistic Regression,Noise,0.95614,0.95635
+23,Logistic Regression,Missing,0.964912,0.947004
+23,Logistic Regression,Feature Removal,0.982456,0.964434
+23,Decision Tree,Clean,0.912281,1.0
+23,Decision Tree,Noise,0.894737,1.0
+23,Decision Tree,Missing,0.903509,1.0
+23,Decision Tree,Feature Removal,0.921053,1.0
+23,Random Forest,Clean,0.95614,0.928728
+23,Random Forest,Noise,0.938596,0.889167
+23,Random Forest,Missing,0.938596,0.856974
+23,Random Forest,Feature Removal,0.964912,0.910351
+23,SVM,Clean,0.973684,0.957123
+23,SVM,Noise,0.95614,0.940347
+23,SVM,Missing,0.973684,0.944275
+23,SVM,Feature Removal,0.964912,0.955137
+24,Logistic Regression,Clean,0.973684,0.963733
+24,Logistic Regression,Noise,0.938596,0.96062
+24,Logistic Regression,Missing,0.95614,0.93754
+24,Logistic Regression,Feature Removal,0.973684,0.961686
+24,Decision Tree,Clean,0.894737,1.0
+24,Decision Tree,Noise,0.833333,1.0
+24,Decision Tree,Missing,0.885965,1.0
+24,Decision Tree,Feature Removal,0.929825,1.0
+24,Random Forest,Clean,0.964912,0.925614
+24,Random Forest,Noise,0.938596,0.872456
+24,Random Forest,Missing,0.929825,0.851842
+24,Random Forest,Feature Removal,0.973684,0.911842
+24,SVM,Clean,0.982456,0.958266
+24,SVM,Noise,0.964912,0.951597
+24,SVM,Missing,0.964912,0.938842
+24,SVM,Feature Removal,0.982456,0.952495
+25,Logistic Regression,Clean,0.982456,0.969448
+25,Logistic Regression,Noise,0.95614,0.971929
+25,Logistic Regression,Missing,0.95614,0.956359
+25,Logistic Regression,Feature Removal,0.964912,0.967059
+25,Decision Tree,Clean,0.921053,1.0
+25,Decision Tree,Noise,0.938596,1.0
+25,Decision Tree,Missing,0.885965,1.0
+25,Decision Tree,Feature Removal,0.903509,1.0
+25,Random Forest,Clean,0.95614,0.939956
+25,Random Forest,Noise,0.947368,0.877412
+25,Random Forest,Missing,0.947368,0.883377
+25,Random Forest,Feature Removal,0.947368,0.929781
+25,SVM,Clean,0.964912,0.962811
+25,SVM,Noise,0.95614,0.953395
+25,SVM,Missing,0.95614,0.948305
+25,SVM,Feature Removal,0.95614,0.965267
+26,Logistic Regression,Clean,0.982456,0.978251
+26,Logistic Regression,Noise,0.973684,0.974543
+26,Logistic Regression,Missing,0.964912,0.961693
+26,Logistic Regression,Feature Removal,0.982456,0.976564
+26,Decision Tree,Clean,0.964912,1.0
+26,Decision Tree,Noise,0.912281,1.0
+26,Decision Tree,Missing,0.885965,1.0
+26,Decision Tree,Feature Removal,0.921053,1.0
+26,Random Forest,Clean,0.929825,0.936842
+26,Random Forest,Noise,0.973684,0.88114
+26,Random Forest,Missing,0.947368,0.874298
+26,Random Forest,Feature Removal,0.964912,0.926754
+26,SVM,Clean,0.991228,0.973333
+26,SVM,Noise,0.991228,0.956214
+26,SVM,Missing,0.982456,0.966477
+26,SVM,Feature Removal,0.991228,0.971041
+27,Logistic Regression,Clean,0.982456,0.966354
+27,Logistic Regression,Noise,0.991228,0.96068
+27,Logistic Regression,Missing,0.95614,0.938761
+27,Logistic Regression,Feature Removal,0.982456,0.965948
+27,Decision Tree,Clean,0.929825,1.0
+27,Decision Tree,Noise,0.833333,1.0
+27,Decision Tree,Missing,0.72807,1.0
+27,Decision Tree,Feature Removal,0.885965,1.0
+27,Random Forest,Clean,0.938596,0.939561
+27,Random Forest,Noise,0.929825,0.875921
+27,Random Forest,Missing,0.947368,0.852237
+27,Random Forest,Feature Removal,0.964912,0.911096
+27,SVM,Clean,0.991228,0.972464
+27,SVM,Noise,0.991228,0.95826
+27,SVM,Missing,0.982456,0.94806
+27,SVM,Feature Removal,0.982456,0.96919
+28,Logistic Regression,Clean,0.991228,0.973808
+28,Logistic Regression,Noise,0.982456,0.975382
+28,Logistic Regression,Missing,0.982456,0.956116
+28,Logistic Regression,Feature Removal,0.991228,0.971781
+28,Decision Tree,Clean,0.938596,1.0
+28,Decision Tree,Noise,0.868421,1.0
+28,Decision Tree,Missing,0.912281,1.0
+28,Decision Tree,Feature Removal,0.947368,1.0
+28,Random Forest,Clean,0.982456,0.952588
+28,Random Forest,Noise,0.973684,0.904123
+28,Random Forest,Missing,0.982456,0.869693
+28,Random Forest,Feature Removal,0.973684,0.930395
+28,SVM,Clean,0.982456,0.976874
+28,SVM,Noise,0.991228,0.976794
+28,SVM,Missing,0.982456,0.960829
+28,SVM,Feature Removal,0.973684,0.975308
+29,Logistic Regression,Clean,0.982456,0.964376
+29,Logistic Regression,Noise,0.964912,0.958669
+29,Logistic Regression,Missing,0.991228,0.942752
+29,Logistic Regression,Feature Removal,0.973684,0.96047
+29,Decision Tree,Clean,0.947368,1.0
+29,Decision Tree,Noise,0.938596,1.0
+29,Decision Tree,Missing,0.912281,1.0
+29,Decision Tree,Feature Removal,0.947368,1.0
+29,Random Forest,Clean,0.947368,0.9325
+29,Random Forest,Noise,0.929825,0.874825
+29,Random Forest,Missing,0.95614,0.841535
+29,Random Forest,Feature Removal,0.95614,0.912018
+29,SVM,Clean,1.0,0.957534
+29,SVM,Noise,0.964912,0.937307
+29,SVM,Missing,0.982456,0.94038
+29,SVM,Feature Removal,0.991228,0.955811
