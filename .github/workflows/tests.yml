@@ -33,3 +33,6 @@ jobs:
 
       - name: Run confidence calibration analysis
         run: python experiments/experiment13_calibration.py
+
+      - name: Run distribution shift analysis
+        run: python experiments/experiment15_distribution_shift.py

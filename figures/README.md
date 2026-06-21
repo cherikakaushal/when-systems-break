@@ -8,6 +8,7 @@
 | `accuracy_vs_coverage.png` | Selective accuracy versus prediction coverage |
 | `calibration_curve.png` | Confidence calibration across clean and noisy inputs |
 | `reliability_diagram.png` | Model-level reliability diagrams with ECE |
+| `distribution_shift.png` | Performance and drift signals under train-to-test shift |
 
 Project-level figures used by the README and research report.
 

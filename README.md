@@ -1,6 +1,6 @@
 # When Systems Break
 
-**An experimental framework for measuring machine learning reliability under noise, missing data, feature degradation, confidence collapse, and refusal-based decision-making.**
+**An experimental framework for measuring machine learning reliability under noise, missing data, feature degradation, distribution shift, confidence collapse, and refusal-based decision-making.**
 
 [Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
 
@@ -43,6 +43,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 6. When should a model refuse to make a prediction?
 7. Can multiple reliability signals be combined without hiding their tradeoffs?
 8. Does 90% confidence actually correspond to 90% correctness?
+9. Can a system detect when the deployment distribution has changed?
 
 ---
 
@@ -54,6 +55,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Failure matrix heatmap for model-by-condition comparison
 - Confidence collapse study using `predict_proba()`
 - Calibration analysis with Expected Calibration Error and reliability diagrams
+- Distribution-shift monitoring with domain-classifier AUC and Population Stability Index
 - Refusal-threshold analysis for safer model behavior
 - Proposed five-component Model Reliability Score across 30 seeded runs
 - Streamlit demo for interactively injecting failure conditions
@@ -75,6 +77,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Calibration curve | [figures/calibration_curve.png](figures/calibration_curve.png) |
 | Reliability diagram | [figures/reliability_diagram.png](figures/reliability_diagram.png) |
 | Calibration metrics | [experiments/calibration_metrics.csv](experiments/calibration_metrics.csv) |
+| Distribution-shift study | [figures/distribution_shift.png](figures/distribution_shift.png) |
+| Distribution-shift statistics | [experiments/shift_statistics.csv](experiments/shift_statistics.csv) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
@@ -100,6 +104,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 12 | Refusal system | [experiment12_refusal_system.py](experiments/experiment12_refusal_system.py) | Measure accuracy, coverage, and refusal rate across confidence thresholds |
 | 13 | Calibration analysis | [experiment13_calibration.py](experiments/experiment13_calibration.py) | Test whether predicted confidence matches observed correctness |
 | 14 | Reliability score framework | [experiment14_reliability_score.py](experiments/experiment14_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
+| 15 | Distribution shift | [experiment15_distribution_shift.py](experiments/experiment15_distribution_shift.py) | Measure performance loss and detect train-to-test covariate shift |
 
 ---
 
@@ -122,6 +127,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 13 | [When should a model say "I don't know"?](blogs/13-when-should-a-model-refuse.md) |
 | 14 | [Beyond accuracy: a reliability score for machine learning](blogs/14-model-reliability-score.md) |
 | 15 | [Does 90% confidence mean 90% correct?](blogs/15-confidence-calibration.md) |
+| 16 | [When the world changes](blogs/16-when-the-world-changes.md) |
 
 ---
 
@@ -158,6 +164,7 @@ python experiments/experiment11_confidence_collapse.py
 python experiments/experiment12_refusal_system.py
 python experiments/experiment13_calibration.py
 python experiments/experiment14_reliability_score.py
+python experiments/experiment15_distribution_shift.py
 ```
 
 ---

@@ -22,6 +22,7 @@ The project studies three main types of input degradation:
 - noise injection
 - missing values
 - feature removal
+- distribution shift
 
 The later confidence-collapse experiment also studies how predicted probabilities change as input quality declines.
 
@@ -40,6 +41,8 @@ The primary metrics are:
 - coverage
 - refusal rate
 - Model Reliability Score and its five component scores
+- domain-classifier ROC AUC
+- Population Stability Index
 
 ## Reliability Score Framework
 
@@ -77,6 +80,23 @@ A perfectly calibrated 90% confidence bin should be correct approximately 90% of
 
 Because ECE depends on binning strategy and sample size, it is reported together with the full reliability diagram rather than treated as a sufficient standalone statistic.
 
+## Distribution Shift
+
+Experiment 15 studies covariate shift: the model is trained on one feature distribution and evaluated after the test distribution moves. Each test feature is standardized using training statistics and transformed as:
+
+```text
+z_shifted = mean_shift + std_multiplier * z_test
+```
+
+The experiment evaluates six levels from `(mean_shift=0.0, std_multiplier=1.0)` to `(mean_shift=0.5, std_multiplier=1.5)` across 30 seeded splits.
+
+Two external drift signals are measured:
+
+- **Domain-classifier ROC AUC:** a separate logistic classifier attempts to distinguish training rows from deployment rows. An AUC near 0.5 indicates weak distinguishability; increasing AUC indicates detectable shift.
+- **Population Stability Index:** training-quantile bins compare feature frequencies between training and shifted test data, then PSI is averaged across features.
+
+PSI and domain AUC depend on sample size, detector capacity, and the reference population. The unshifted holdout in this experiment has a nonzero PSI because it is a finite sample. These statistics should be calibrated against an application's normal variation rather than interpreted through universal alert thresholds.
+
 ## Interpretation
 
-A robust model should not only perform well on clean data. It should also degrade predictably, show low variance across repeated runs, reduce confidence when input quality becomes unreliable, and refuse predictions when confidence falls below a reliability threshold.
+A robust model should not only perform well on clean data. It should also degrade predictably, show low variance across repeated runs, reduce confidence when input quality becomes unreliable, detect deployment drift, and refuse predictions when confidence falls below a reliability threshold.

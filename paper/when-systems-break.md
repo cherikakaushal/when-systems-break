@@ -5,7 +5,7 @@
 
 Machine learning systems are commonly evaluated using clean-data accuracy, but deployed models often operate under degraded input conditions. Data can become noisy, incomplete, corrupted, or partially unavailable, causing models to behave differently from their reported benchmark performance. This paper studies how supervised learning models respond when the assumptions behind their inputs begin to fail.
 
-Using a controlled tabular classification setting, fourteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, confidence degradation, calibration, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside calibration, coverage, and refusal rate.
+Using a controlled tabular classification setting, fifteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, distribution shift, confidence degradation, calibration, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside drift detection, calibration, coverage, and refusal rate.
 
 The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions. A proposed Model Reliability Score then combines accuracy, robustness, confidence stability, refusal quality, and repeatability while retaining each component for auditability.
 
@@ -19,7 +19,7 @@ What happens when a machine learning system is asked to make predictions under d
 
 The goal of this project is to study model failure as a measurable process. Instead of treating failure as a single event, the experiments examine how performance changes as input quality declines. The project also studies whether confidence scores can help identify risky predictions before the system fails visibly.
 
-The later experiments ask whether stated confidence matches empirical correctness and whether separate reliability signals can be summarized in a transparent composite score without reducing reliability back to accuracy alone.
+The later experiments ask whether stated confidence matches empirical correctness, whether a changed deployment distribution can be detected, and whether separate reliability signals can be summarized in a transparent composite score without reducing reliability back to accuracy alone.
 
 The research story progresses through three stages:
 
@@ -63,6 +63,8 @@ All experiments were implemented in Python using a controlled classification wor
 - Feature importance
 - Model Reliability Score
 - Expected Calibration Error
+- Domain-classifier ROC AUC
+- Population Stability Index
 
 The experiments use clean data as a baseline and then introduce controlled degradation through noise injection, missing values, feature removal, and confidence thresholds. Later experiments compare multiple models and summarize failure patterns in aggregate visualizations.
 
@@ -190,7 +192,23 @@ In the 90-100% confidence bin, Logistic Regression averaged 99.20% confidence an
 
 ECE depends on the number and placement of bins and can hide localized errors. The experiment therefore exports complete bin-level data and reports reliability diagrams alongside the scalar metric.
 
-## 11. Key Findings
+## 11. Distribution Shift
+
+Distribution shift occurs when deployment inputs no longer follow the distribution represented by training data. Unlike random corruption, shifted values may remain individually valid while the population as a whole changes.
+
+Experiment 15 applies a controlled affine transformation in training-standardized feature space. The test mean moves from 0.0 to 0.5 training standard deviations while the scale multiplier increases from 1.0 to 1.5. Four models are evaluated across six shift levels and 30 seeded splits.
+
+![Distribution Shift](figures/distribution_shift.png)
+
+At the largest shift, all models lose substantial accuracy relative to their unshifted baselines. Random Forest declines by 8.77 percentage points, Decision Tree by 9.42, SVM by 11.11, and Logistic Regression by 12.11. Confidence does not decline proportionally: Logistic Regression remains 94.59% confident at 85.88% accuracy, while Decision Tree stays at 100% confidence despite falling to 83.51% accuracy.
+
+The experiment also evaluates whether an external monitor can detect the changed distribution. A logistic domain classifier attempts to distinguish training rows from deployment rows. Its mean ROC AUC rises from 0.506 without imposed shift to 0.775 at the largest shift. Mean Population Stability Index rises from 0.102 to 0.375 over the same range.
+
+These results separate two reliability questions. Prediction confidence measures a model's preference among outputs; drift statistics measure whether current inputs resemble the model's training environment. A model can remain confident while the surrounding world becomes detectably different.
+
+The unshifted PSI is nonzero because the training and holdout sets are finite samples. PSI bins, domain-detector capacity, and sample size all affect the reported values, so operational alerts should be calibrated against a system's normal variation rather than universal thresholds.
+
+## 12. Key Findings
 
 1. Clean-data accuracy is not enough to evaluate reliability.
 
@@ -214,11 +232,13 @@ ECE depends on the number and placement of bins and can hide localized errors. T
 
 11. High confidence does not guarantee calibration; stated probabilities must be compared with observed correctness.
 
-## 12. Limitations
+12. Distribution shift can be detectable before model confidence reflects the resulting accuracy loss.
+
+## 13. Limitations
 
 The experiments were conducted on a limited tabular dataset in a controlled environment. This makes failure patterns easier to isolate, but it does not capture the full complexity of production machine learning systems.
 
-The degradation methods are also simplified. Gaussian noise, missing-value simulation, and feature removal are useful controlled tests, but real-world failure modes may include distribution shift, adversarial perturbations, data drift, semantic corruption, and feedback loops.
+The degradation methods are also simplified. Gaussian noise, missing-value simulation, feature removal, and affine covariate shift are useful controlled tests, but real-world failure modes may include adversarial perturbations, temporal or geographic drift, semantic corruption, label shift, concept drift, and feedback loops.
 
 Confidence scores are model-dependent and may require calibration before being used as operational reliability signals. The refusal system is therefore a prototype for studying abstention behavior, not a complete production safety mechanism.
 
@@ -226,14 +246,16 @@ The proposed Model Reliability Score is sensitive to its weights, degradation de
 
 Expected Calibration Error is also sensitive to bin count, bin boundaries, and sample size. Equal-width bins can contain very different numbers of predictions, especially when models concentrate confidence near one. Calibration conclusions should therefore consider the diagrams and bin counts in addition to ECE.
 
-## 13. Future Work
+The distribution-shift detector is a linear domain classifier, and PSI is averaged across marginal feature distributions. Neither approach guarantees detection of nonlinear, conditional, or label-only shifts.
+
+## 14. Future Work
 
 Future work includes:
 
 - Explainable AI using SHAP
 - Confidence calibration experiments
 - Semantic noise analysis
-- Distribution shift experiments
+- Temporal, geographic, label-shift, and concept-drift experiments
 - Adversarial perturbation testing
 - Human-in-the-loop review workflows
 - Cost-sensitive refusal policies
@@ -243,7 +265,7 @@ Future work includes:
 - Temperature scaling, isotonic regression, and Platt scaling comparisons
 - Adaptive-bin and classwise calibration metrics
 
-## 14. References
+## 15. References
 
 1. Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 2011.
 
