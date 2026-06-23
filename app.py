@@ -45,10 +45,10 @@ def train_model():
 
 
 @st.cache_data
-def load_reliability_score():
-    score_path = Path(__file__).resolve().parent / "experiments" / "reliability_scores.csv"
-    scores = pd.read_csv(score_path).set_index("Model")
-    return float(scores.loc["Logistic Regression", "Reliability Score"])
+def load_reliability_index():
+    index_path = Path(__file__).resolve().parent / "experiments" / "reliability_index.csv"
+    scores = pd.read_csv(index_path).set_index("Model")
+    return float(scores.loc["Logistic Regression", "Reliability Index"])
 
 
 def initialize_state(X):
@@ -97,7 +97,7 @@ def estimate_failure_risk(confidence, noise_level, missing_ratio, operation_coun
 
 X_default, y_default, target_names = load_default_data()
 model, train_mean, train_std = train_model()
-model_reliability = load_reliability_score()
+model_reliability = load_reliability_index()
 initialize_state(X_default)
 
 st.title("When Systems Break")
@@ -158,7 +158,7 @@ with right:
     metric_cols[0].metric("Prediction", predicted_label)
     metric_cols[1].metric("Confidence", f"{confidence:.1%}")
     metric_cols[2].metric("Failure Risk", f"{failure_risk:.1%}")
-    metric_cols[3].metric("Model Reliability", f"{model_reliability:.1f}/100")
+    metric_cols[3].metric("Reliability Index", f"{model_reliability:.1f}/100")
 
     st.subheader("Current Input")
     st.dataframe(X_input, use_container_width=True)

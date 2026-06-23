@@ -5,9 +5,9 @@
 
 Machine learning systems are commonly evaluated using clean-data accuracy, but deployed models often operate under degraded input conditions. Data can become noisy, incomplete, corrupted, or partially unavailable, causing models to behave differently from their reported benchmark performance. This paper studies how supervised learning models respond when the assumptions behind their inputs begin to fail.
 
-Using a controlled tabular classification setting, fifteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, distribution shift, confidence degradation, calibration, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside drift detection, calibration, coverage, and refusal rate.
+Using a controlled tabular classification setting, sixteen experiments evaluate model behavior under noise injection, missing values, feature removal, repeated random seeds, distribution shift, confidence degradation, calibration, and refusal thresholds. The results show that model failure is often gradual rather than immediate. Accuracy can remain stable at low degradation levels before declining more sharply, and different algorithms exhibit different robustness patterns. Confidence scores also provide useful signals, but they must be interpreted alongside drift detection, calibration, coverage, and refusal rate.
 
-The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions. A proposed Model Reliability Score then combines accuracy, robustness, confidence stability, refusal quality, and repeatability while retaining each component for auditability.
+The central finding is that robustness evaluation should not stop at measuring failure. A stronger system should detect uncertainty and respond to it. Refusal-based reliability provides one such response by allowing a model to abstain from low-confidence predictions. A proposed Model Reliability Score evaluates five behaviors in one benchmark, while a cross-experiment Reliability Index synthesizes accuracy, robustness, calibration, shift resistance, and confidence without hiding its component evidence.
 
 ## 2. Introduction
 
@@ -62,6 +62,7 @@ All experiments were implemented in Python using a controlled classification wor
 - Refusal rate
 - Feature importance
 - Model Reliability Score
+- Reliability Index
 - Expected Calibration Error
 - Domain-classifier ROC AUC
 - Population Stability Index
@@ -208,7 +209,30 @@ These results separate two reliability questions. Prediction confidence measures
 
 The unshifted PSI is nonzero because the training and holdout sets are finite samples. PSI bins, domain-detector capacity, and sample size all affect the reported values, so operational alerts should be calibrated against a system's normal variation rather than universal thresholds.
 
-## 12. Key Findings
+## 12. Reliability Index
+
+The earlier experiments expose separate dimensions of model behavior. Experiment 16 asks which model performs best when those measurements are considered together.
+
+```text
+Reliability = 0.25(Accuracy)
+            + 0.20(Noise Robustness)
+            + 0.15(Missing Data)
+            + 0.15(Calibration)
+            + 0.15(Distribution Shift)
+            + 0.10(Confidence)
+```
+
+Accuracy and noisy accuracy come from the 30-seed statistical analysis. Missing-data accuracy comes from the failure matrix. Calibration is one minus mean ECE across clean and noisy conditions. Distribution-shift performance is endpoint accuracy under the `(0.5, 1.5)` shift. Confidence measures alignment between mean confidence and accuracy across all shift levels. Every component is scaled from 0 to 100 before weighting.
+
+![Model Reliability Index](figures/reliability_index.png)
+
+SVM ranks first at 96.21, followed closely by Logistic Regression at 95.99. Random Forest scores 94.82, and Decision Tree scores 89.42. SVM's advantage comes from missing-data performance, shift resistance, and confidence alignment. Logistic Regression leads in clean accuracy, noisy accuracy, and calibration. The near tie demonstrates why the component matrix is necessary: similar totals can represent different reliability profiles.
+
+This index differs from Experiment 14's Model Reliability Score. Experiment 14 includes refusal quality and repeatability inside one unified benchmark. Experiment 16 synthesizes independent outputs across the repository and explicitly adds missing-data, calibration, and distribution-shift performance.
+
+The weights are declared research choices, not learned or externally validated parameters. The index answers which model is strongest under this project's priorities; it does not establish universal model safety.
+
+## 13. Key Findings
 
 1. Clean-data accuracy is not enough to evaluate reliability.
 
@@ -234,7 +258,9 @@ The unshifted PSI is nonzero because the training and holdout sets are finite sa
 
 12. Distribution shift can be detectable before model confidence reflects the resulting accuracy loss.
 
-## 13. Limitations
+13. Overall reliability is multi-dimensional, and similar composite totals can conceal different strengths and vulnerabilities.
+
+## 14. Limitations
 
 The experiments were conducted on a limited tabular dataset in a controlled environment. This makes failure patterns easier to isolate, but it does not capture the full complexity of production machine learning systems.
 
@@ -244,11 +270,13 @@ Confidence scores are model-dependent and may require calibration before being u
 
 The proposed Model Reliability Score is sensitive to its weights, degradation definitions, dataset, and normalization choices. It has not been validated against production incidents or external benchmarks and should not be interpreted as a certified measure of model safety.
 
+The Reliability Index shares this sensitivity and also combines measurements from experiments with different aggregation designs. Its ranking may change under different component weights, shift severity, missingness mechanism, or calibration definition.
+
 Expected Calibration Error is also sensitive to bin count, bin boundaries, and sample size. Equal-width bins can contain very different numbers of predictions, especially when models concentrate confidence near one. Calibration conclusions should therefore consider the diagrams and bin counts in addition to ECE.
 
 The distribution-shift detector is a linear domain classifier, and PSI is averaged across marginal feature distributions. Neither approach guarantees detection of nonlinear, conditional, or label-only shifts.
 
-## 14. Future Work
+## 15. Future Work
 
 Future work includes:
 
@@ -262,10 +290,11 @@ Future work includes:
 - Interactive robustness dashboard expansion
 - Reliability-weight sensitivity analysis
 - External validation of the composite score across datasets
+- Pareto-front analysis as an alternative to a single weighted index
 - Temperature scaling, isotonic regression, and Platt scaling comparisons
 - Adaptive-bin and classwise calibration metrics
 
-## 15. References
+## 16. References
 
 1. Pedregosa, F. et al. Scikit-learn: Machine Learning in Python. Journal of Machine Learning Research, 2011.
 

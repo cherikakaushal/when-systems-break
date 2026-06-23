@@ -19,4 +19,5 @@ The blog series documents the project as a research narrative, moving from simpl
 | 13 | [When should a model say "I don't know"?](13-when-should-a-model-refuse.md) | Refusal thresholds |
 | 14 | [Beyond accuracy: a reliability score for machine learning](14-model-reliability-score.md) | Composite reliability measurement |
 | 15 | [Does 90% confidence mean 90% correct?](15-confidence-calibration.md) | Confidence calibration and ECE |
-| 16 | [When the world changes](16-when-the-world-changes.md) | Distribution shift and drift detection |
+| 16 | [What makes a model reliable?](16-what-makes-a-model-reliable.md) | Cross-experiment Reliability Index |
+| 17 | [When the world changes](17-when-the-world-changes.md) | Distribution shift and drift detection |

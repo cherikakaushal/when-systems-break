@@ -36,3 +36,6 @@ jobs:
 
       - name: Run distribution shift analysis
         run: python experiments/experiment15_distribution_shift.py
+
+      - name: Build cross-experiment reliability index
+        run: python experiments/experiment16_reliability_index.py

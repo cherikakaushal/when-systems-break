@@ -43,6 +43,7 @@ The primary metrics are:
 - Model Reliability Score and its five component scores
 - domain-classifier ROC AUC
 - Population Stability Index
+- Reliability Index and its six cross-experiment component scores
 
 ## Reliability Score Framework
 
@@ -96,6 +97,28 @@ Two external drift signals are measured:
 - **Population Stability Index:** training-quantile bins compare feature frequencies between training and shifted test data, then PSI is averaged across features.
 
 PSI and domain AUC depend on sample size, detector capacity, and the reference population. The unshifted holdout in this experiment has a nonzero PSI because it is a finite sample. These statistics should be calibrated against an application's normal variation rather than interpreted through universal alert thresholds.
+
+## Reliability Index
+
+Experiment 16 synthesizes existing outputs rather than rerunning a new model benchmark:
+
+```text
+Reliability = 0.25(Accuracy)
+            + 0.20(Noise Robustness)
+            + 0.15(Missing Data)
+            + 0.15(Calibration)
+            + 0.15(Distribution Shift)
+            + 0.10(Confidence)
+```
+
+- **Accuracy** is 30-seed mean clean accuracy from Experiment 9.
+- **Noise Robustness** is 30-seed mean noisy accuracy from Experiment 9.
+- **Missing Data** is accuracy under missing inputs from Experiment 10.
+- **Calibration** is `100 * (1 - mean ECE)` across clean and noisy conditions from Experiment 13.
+- **Distribution Shift** is accuracy at the maximum `(0.5, 1.5)` shift from Experiment 15.
+- **Confidence** is `100 * (1 - mean absolute confidence-accuracy gap)` across all shift levels from Experiment 15.
+
+This differs from Experiment 14's Model Reliability Score. Experiment 14 evaluates refusal quality and repeatability inside one unified benchmark; Experiment 16 combines six outputs already produced across the repository. Both are proposed, benchmark-specific composites whose weights must remain visible.
 
 ## Interpretation
 

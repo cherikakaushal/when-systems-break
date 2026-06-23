@@ -9,6 +9,7 @@
 | `calibration_curve.png` | Confidence calibration across clean and noisy inputs |
 | `reliability_diagram.png` | Model-level reliability diagrams with ECE |
 | `distribution_shift.png` | Performance and drift signals under train-to-test shift |
+| `reliability_index.png` | Overall model ranking with six component scores |
 
 Project-level figures used by the README and research report.
 

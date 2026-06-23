@@ -4,9 +4,33 @@
 
 [Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
 
-![Model Reliability Score](figures/reliability_scores.png)
+![Model Reliability Index](figures/reliability_index.png)
 
-## Model Reliability Score
+## Experiment 16 - Reliability Index
+
+Reliability is multi-dimensional. Experiment 16 combines accuracy, noise robustness, missing-data performance, calibration, distribution-shift resistance, and confidence behavior into one cross-experiment index.
+
+| Model | Reliability Index |
+|---|---:|
+| SVM | **96.21** |
+| Logistic Regression | **95.99** |
+| Random Forest | **94.82** |
+| Decision Tree | **89.42** |
+
+```text
+Reliability = 0.25(Accuracy)
+            + 0.20(Noise Robustness)
+            + 0.15(Missing Data)
+            + 0.15(Calibration)
+            + 0.15(Distribution Shift)
+            + 0.10(Confidence)
+```
+
+Every component remains visible in the figure and CSV. The index ranks models within this repository; it is not a universal safety certification.
+
+## Experiment 14 - Model Reliability Score
+
+![Model Reliability Score](figures/reliability_scores.png)
 
 A single accuracy value hides how a model behaves when conditions change. Experiment 14 introduces a transparent composite score built from five measured components.
 
@@ -79,6 +103,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Calibration metrics | [experiments/calibration_metrics.csv](experiments/calibration_metrics.csv) |
 | Distribution-shift study | [figures/distribution_shift.png](figures/distribution_shift.png) |
 | Distribution-shift statistics | [experiments/shift_statistics.csv](experiments/shift_statistics.csv) |
+| Reliability Index figure | [figures/reliability_index.png](figures/reliability_index.png) |
+| Reliability Index CSV | [experiments/reliability_index.csv](experiments/reliability_index.csv) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
@@ -105,6 +131,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 13 | Calibration analysis | [experiment13_calibration.py](experiments/experiment13_calibration.py) | Test whether predicted confidence matches observed correctness |
 | 14 | Reliability score framework | [experiment14_reliability_score.py](experiments/experiment14_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
 | 15 | Distribution shift | [experiment15_distribution_shift.py](experiments/experiment15_distribution_shift.py) | Measure performance loss and detect train-to-test covariate shift |
+| 16 | Reliability Index | [experiment16_reliability_index.py](experiments/experiment16_reliability_index.py) | Combine six cross-experiment reliability dimensions into one ranking |
 
 ---
 
@@ -127,7 +154,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 13 | [When should a model say "I don't know"?](blogs/13-when-should-a-model-refuse.md) |
 | 14 | [Beyond accuracy: a reliability score for machine learning](blogs/14-model-reliability-score.md) |
 | 15 | [Does 90% confidence mean 90% correct?](blogs/15-confidence-calibration.md) |
-| 16 | [When the world changes](blogs/16-when-the-world-changes.md) |
+| 16 | [What makes a model reliable?](blogs/16-what-makes-a-model-reliable.md) |
+| 17 | [When the world changes](blogs/17-when-the-world-changes.md) |
 
 ---
 
@@ -165,6 +193,7 @@ python experiments/experiment12_refusal_system.py
 python experiments/experiment13_calibration.py
 python experiments/experiment14_reliability_score.py
 python experiments/experiment15_distribution_shift.py
+python experiments/experiment16_reliability_index.py
 ```
 
 ---
