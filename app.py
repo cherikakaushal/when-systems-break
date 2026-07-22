@@ -3,7 +3,7 @@ from pathlib import Path
 import numpy as np
 import pandas as pd
 import streamlit as st
-from sklearn.datasets import load_breast_cancer
+from sklearn.datasets import load_breast_cancer, load_iris, load_wine
 from sklearn.linear_model import LogisticRegression
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
@@ -18,6 +18,14 @@ GITHUB_BASE_URL = "https://github.com/cherikakaushal/when-systems-break"
 PAPER_URL = f"{GITHUB_BASE_URL}/blob/main/paper/when-systems-break.pdf"
 README_URL = f"{GITHUB_BASE_URL}#readme"
 EXPERIMENTS_URL = f"{GITHUB_BASE_URL}/tree/main/experiments"
+GITHUB_URL = GITHUB_BASE_URL
+
+
+DATASETS = {
+    "Breast Cancer": load_breast_cancer,
+    "Iris": load_iris,
+    "Wine": load_wine,
+}
 
 
 st.set_page_config(
@@ -28,12 +36,43 @@ st.set_page_config(
 )
 
 
-st.markdown(
-    """
+def apply_theme(mode):
+    palettes = {
+        "Dark": {
+            "app_bg": "#0B111B",
+            "sidebar_bg": "#101826",
+            "panel_bg": "#111827",
+            "panel_border": "#2E3A4F",
+            "text": "#F8FAFC",
+            "muted": "#93A4B8",
+            "subtle": "#CBD5E1",
+            "hover": "#1D2939",
+            "link": "#7DD3FC",
+            "link_hover": "#BAE6FD",
+            "shadow": "rgba(0, 0, 0, 0.20)",
+        },
+        "Light": {
+            "app_bg": "#F6F8FB",
+            "sidebar_bg": "#FFFFFF",
+            "panel_bg": "#FFFFFF",
+            "panel_border": "#D8DEE9",
+            "text": "#111827",
+            "muted": "#475467",
+            "subtle": "#344054",
+            "hover": "#EEF4FF",
+            "link": "#075985",
+            "link_hover": "#0C4A6E",
+            "shadow": "rgba(16, 24, 40, 0.08)",
+        },
+    }
+    colors = palettes[mode]
+
+    st.markdown(
+        f"""
     <style>
     .stApp {
-        background: #0B111B;
-        color: #F8FAFC;
+        background: {colors["app_bg"]};
+        color: {colors["text"]};
     }
     .block-container {
         padding-top: 1.25rem;
@@ -41,19 +80,19 @@ st.markdown(
         max-width: 1280px;
     }
     [data-testid="stSidebar"] {
-        background: #101826;
-        border-right: 1px solid #253044;
+        background: {colors["sidebar_bg"]};
+        border-right: 1px solid {colors["panel_border"]};
     }
     [data-testid="stSidebar"] * {
-        color: #F8FAFC !important;
+        color: {colors["text"]} !important;
     }
     [data-testid="stSidebar"] a {
-        color: #7DD3FC !important;
+        color: {colors["link"]} !important;
         text-decoration: none;
         font-weight: 600;
     }
     [data-testid="stSidebar"] a:hover {
-        color: #BAE6FD !important;
+        color: {colors["link_hover"]} !important;
         text-decoration: underline;
     }
     [data-testid="stSidebar"] [role="radiogroup"] label {
@@ -62,62 +101,77 @@ st.markdown(
         padding: 0.08rem 0.25rem;
     }
     [data-testid="stSidebar"] [role="radiogroup"] label:hover {
-        background: #1D2939;
+        background: {colors["hover"]};
     }
     h1, h2, h3 {
-        color: #F8FAFC;
+        color: {colors["text"]};
+    }
+    p, li, label, span {
+        color: {colors["text"]};
     }
     div[data-testid="stMetric"] {
-        background: #111827;
-        border: 1px solid #2E3A4F;
+        background: {colors["panel_bg"]};
+        border: 1px solid {colors["panel_border"]};
         border-radius: 8px;
         padding: 14px 16px;
-        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
+        box-shadow: 0 1px 2px {colors["shadow"]};
     }
     div[data-testid="stMetric"] label {
-        color: #CBD5E1 !important;
+        color: {colors["subtle"]} !important;
     }
     div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        color: #F8FAFC;
+        color: {colors["text"]};
     }
     div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
-        color: #CBD5E1;
+        color: {colors["subtle"]};
     }
     .section-note {
-        color: #93A4B8;
+        color: {colors["muted"]};
         font-size: 0.98rem;
         margin-top: -0.35rem;
         margin-bottom: 1rem;
     }
     .status-pill {
         display: inline-block;
-        border: 1px solid #334155;
+        border: 1px solid {colors["panel_border"]};
         border-radius: 999px;
         padding: 0.2rem 0.62rem;
-        color: #E2E8F0;
-        background: #111827;
+        color: {colors["text"]};
+        background: {colors["panel_bg"]};
         font-size: 0.85rem;
         margin-right: 0.35rem;
         margin-bottom: 0.4rem;
     }
     .stButton > button,
     .stDownloadButton > button {
-        border: 1px solid #334155;
-        background: #111827;
-        color: #F8FAFC;
+        border: 1px solid {colors["panel_border"]};
+        background: {colors["panel_bg"]};
+        color: {colors["text"]};
     }
     .stButton > button:hover,
     .stDownloadButton > button:hover {
-        border-color: #38BDF8;
-        color: #E0F2FE;
+        border-color: {colors["link"]};
+        color: {colors["link_hover"]};
     }
     a {
-        color: #7DD3FC;
+        color: {colors["link"]};
+    }
+    [data-testid="stDataFrame"],
+    [data-testid="stTable"] {
+        border: 1px solid {colors["panel_border"]};
+        border-radius: 8px;
+    }
+    [data-testid="stFileUploader"] section {
+        background: {colors["panel_bg"]};
+        border-color: {colors["panel_border"]};
+    }
+    [data-testid="stAlert"] {
+        color: {colors["text"]};
     }
     </style>
-    """,
-    unsafe_allow_html=True,
-)
+        """,
+        unsafe_allow_html=True,
+    )
 
 
 def read_csv(name):
@@ -143,16 +197,16 @@ def load_result_tables():
 
 
 @st.cache_data
-def load_default_data():
-    data = load_breast_cancer()
+def load_dataset(dataset_name):
+    data = DATASETS[dataset_name]()
     X = pd.DataFrame(data.data, columns=data.feature_names)
     y = pd.Series(data.target, name="target")
     return X, y, data.target_names
 
 
 @st.cache_resource
-def train_demo_model():
-    X, y, _ = load_default_data()
+def train_demo_model(dataset_name):
+    X, y, _ = load_dataset(dataset_name)
     X_train, _, y_train, _ = train_test_split(
         X,
         y,
@@ -203,7 +257,11 @@ def display_dataframe(frame, percent_columns=None):
     st.dataframe(styled, use_container_width=True, hide_index=True)
 
 
-def initialize_state(X):
+def initialize_state(X, dataset_name):
+    if st.session_state.get("active_dataset") != dataset_name:
+        st.session_state.active_dataset = dataset_name
+        st.session_state.input_data = X.head(1).copy()
+        st.session_state.operations = []
     if "input_data" not in st.session_state:
         st.session_state.input_data = X.head(1).copy()
     if "operations" not in st.session_state:
@@ -467,16 +525,17 @@ def render_reliability_ranking(tables):
 
 def render_interactive_lab(tables):
     section_header(
-        "Interactive Failure Lab",
-        "Upload or perturb one input row, then inspect prediction, confidence, and estimated failure risk.",
+        "Interactive Reliability Lab",
+        "Choose a dataset, perturb one input row, then inspect prediction, confidence, and estimated failure risk.",
     )
 
-    X_default, _, target_names = load_default_data()
-    model, train_mean, train_std = train_demo_model()
-    initialize_state(X_default)
+    dataset_name = st.selectbox("Choose Dataset", list(DATASETS), index=0)
+    X_default, _, target_names = load_dataset(dataset_name)
+    model, train_mean, train_std = train_demo_model(dataset_name)
+    initialize_state(X_default, dataset_name)
 
     uploaded_file = st.file_uploader(
-        "Upload a CSV with breast cancer feature columns",
+        "Upload a CSV with columns matching the selected dataset",
         type=["csv"],
     )
 
@@ -487,7 +546,7 @@ def render_interactive_lab(tables):
             st.session_state.input_data = uploaded[expected_columns].head(1).copy()
             st.session_state.operations = ["Uploaded data"]
         else:
-            st.error("Uploaded CSV must include the same feature columns used by the breast cancer dataset.")
+            st.error("Uploaded CSV must include the feature columns used by the selected dataset.")
 
     left, right = st.columns([0.34, 0.66])
 
@@ -564,6 +623,13 @@ def main():
 
     st.sidebar.title("When Systems Break")
     st.sidebar.caption("Research dashboard")
+    appearance = st.sidebar.segmented_control(
+        "Appearance",
+        ["Dark", "Light"],
+        default="Dark",
+    )
+    apply_theme(appearance)
+
     page = st.sidebar.radio(
         "Navigate",
         [
@@ -587,8 +653,9 @@ def main():
             mime="application/pdf",
             use_container_width=True,
         )
-    st.sidebar.markdown(f"[Research paper on GitHub]({PAPER_URL})")
-    st.sidebar.markdown(f"[GitHub README]({README_URL})")
+    st.sidebar.markdown(f"[Research Paper]({PAPER_URL})")
+    st.sidebar.markdown(f"[GitHub]({GITHUB_URL})")
+    st.sidebar.markdown(f"[README]({README_URL})")
     st.sidebar.markdown(f"[Experiment scripts]({EXPERIMENTS_URL})")
 
     st.title("When Systems Break")
