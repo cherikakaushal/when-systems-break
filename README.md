@@ -236,6 +236,7 @@ when-systems-break/
 |-- requirements.txt
 |-- blogs/
 |-- data/
+|-- dashboard/
 |-- docs/
 |-- experiments/
 |-- figures/
