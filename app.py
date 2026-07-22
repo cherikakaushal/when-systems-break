@@ -14,6 +14,10 @@ ROOT = Path(__file__).resolve().parent
 EXPERIMENTS_DIR = ROOT / "experiments"
 FIGURES_DIR = ROOT / "figures"
 PAPER_PATH = ROOT / "paper" / "when-systems-break.pdf"
+GITHUB_BASE_URL = "https://github.com/cherikakaushal/when-systems-break"
+PAPER_URL = f"{GITHUB_BASE_URL}/blob/main/paper/when-systems-break.pdf"
+README_URL = f"{GITHUB_BASE_URL}#readme"
+EXPERIMENTS_URL = f"{GITHUB_BASE_URL}/tree/main/experiments"
 
 
 st.set_page_config(
@@ -27,40 +31,88 @@ st.set_page_config(
 st.markdown(
     """
     <style>
+    .stApp {
+        background: #0B111B;
+        color: #F8FAFC;
+    }
     .block-container {
         padding-top: 1.25rem;
         padding-bottom: 2rem;
         max-width: 1280px;
     }
     [data-testid="stSidebar"] {
-        background: #F7F8FA;
+        background: #101826;
+        border-right: 1px solid #253044;
+    }
+    [data-testid="stSidebar"] * {
+        color: #F8FAFC !important;
+    }
+    [data-testid="stSidebar"] a {
+        color: #7DD3FC !important;
+        text-decoration: none;
+        font-weight: 600;
+    }
+    [data-testid="stSidebar"] a:hover {
+        color: #BAE6FD !important;
+        text-decoration: underline;
+    }
+    [data-testid="stSidebar"] [role="radiogroup"] label {
+        background: transparent;
+        border-radius: 8px;
+        padding: 0.08rem 0.25rem;
+    }
+    [data-testid="stSidebar"] [role="radiogroup"] label:hover {
+        background: #1D2939;
+    }
+    h1, h2, h3 {
+        color: #F8FAFC;
     }
     div[data-testid="stMetric"] {
-        background: #FFFFFF;
-        border: 1px solid #E4E7EC;
+        background: #111827;
+        border: 1px solid #2E3A4F;
         border-radius: 8px;
         padding: 14px 16px;
-        box-shadow: 0 1px 2px rgba(16, 24, 40, 0.04);
+        box-shadow: 0 1px 2px rgba(0, 0, 0, 0.20);
     }
     div[data-testid="stMetric"] label {
-        color: #475467;
+        color: #CBD5E1 !important;
+    }
+    div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+        color: #F8FAFC;
+    }
+    div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
+        color: #CBD5E1;
     }
     .section-note {
-        color: #475467;
+        color: #93A4B8;
         font-size: 0.98rem;
         margin-top: -0.35rem;
         margin-bottom: 1rem;
     }
     .status-pill {
         display: inline-block;
-        border: 1px solid #D0D5DD;
+        border: 1px solid #334155;
         border-radius: 999px;
         padding: 0.2rem 0.62rem;
-        color: #344054;
-        background: #FFFFFF;
+        color: #E2E8F0;
+        background: #111827;
         font-size: 0.85rem;
         margin-right: 0.35rem;
         margin-bottom: 0.4rem;
+    }
+    .stButton > button,
+    .stDownloadButton > button {
+        border: 1px solid #334155;
+        background: #111827;
+        color: #F8FAFC;
+    }
+    .stButton > button:hover,
+    .stDownloadButton > button:hover {
+        border-color: #38BDF8;
+        color: #E0F2FE;
+    }
+    a {
+        color: #7DD3FC;
     }
     </style>
     """,
@@ -528,9 +580,16 @@ def main():
 
     st.sidebar.divider()
     if PAPER_PATH.exists():
-        st.sidebar.markdown(f"[Research paper]({PAPER_PATH.as_posix()})")
-    st.sidebar.markdown("[GitHub README](README.md)")
-    st.sidebar.markdown("[Experiment scripts](experiments)")
+        st.sidebar.download_button(
+            "Download paper PDF",
+            data=PAPER_PATH.read_bytes(),
+            file_name="when-systems-break.pdf",
+            mime="application/pdf",
+            use_container_width=True,
+        )
+    st.sidebar.markdown(f"[Research paper on GitHub]({PAPER_URL})")
+    st.sidebar.markdown(f"[GitHub README]({README_URL})")
+    st.sidebar.markdown(f"[Experiment scripts]({EXPERIMENTS_URL})")
 
     st.title("When Systems Break")
     st.caption("A research dashboard for machine learning reliability under degraded data.")
