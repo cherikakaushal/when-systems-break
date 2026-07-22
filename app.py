@@ -1,40 +1,25 @@
 import streamlit as st
 
+import dashboard.pages as pages
 from dashboard.components import header
-from dashboard.pages import (
-    render_about,
-    render_calibration,
-    render_confidence_collapse,
-    render_dataset_explorer,
-    render_distribution_shift,
-    render_downloads,
-    render_experiments,
-    render_failure_matrix,
-    render_interactive_lab,
-    render_landing,
-    render_model_explorer,
-    render_overview,
-    render_research_progress,
-    render_reliability_ranking,
-)
 from dashboard.sidebar import render_sidebar
 
 
 PAGES = {
-    "Landing": render_landing,
-    "Overview": render_overview,
-    "Experiments": render_experiments,
-    "Dataset Explorer": render_dataset_explorer,
-    "Interactive Lab": render_interactive_lab,
-    "Research Progress": render_research_progress,
-    "About": render_about,
-    "Failure Matrix": render_failure_matrix,
-    "Calibration": render_calibration,
-    "Confidence Collapse": render_confidence_collapse,
-    "Distribution Shift": render_distribution_shift,
-    "Reliability Ranking": render_reliability_ranking,
-    "Model Explorer": render_model_explorer,
-    "Downloads": render_downloads,
+    "Landing": pages.render_landing,
+    "Overview": pages.render_overview,
+    "Experiments": pages.render_experiments,
+    "Dataset Explorer": pages.render_dataset_explorer,
+    "Interactive Lab": pages.render_interactive_lab,
+    "Research Progress": pages.render_research_progress,
+    "About": pages.render_about,
+    "Failure Matrix": pages.render_failure_matrix,
+    "Calibration": pages.render_calibration,
+    "Confidence Collapse": pages.render_confidence_collapse,
+    "Distribution Shift": pages.render_distribution_shift,
+    "Reliability Ranking": pages.render_reliability_ranking,
+    "Model Explorer": pages.render_model_explorer,
+    "Downloads": pages.render_downloads,
 }
 
 
