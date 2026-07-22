@@ -1,4 +1,5 @@
 from pathlib import Path
+from string import Template
 
 import numpy as np
 import pandas as pd
@@ -67,12 +68,12 @@ def apply_theme(mode):
     }
     colors = palettes[mode]
 
-    st.markdown(
-        f"""
+    css = Template(
+        """
     <style>
     .stApp {
-        background: {colors["app_bg"]};
-        color: {colors["text"]};
+        background: $app_bg;
+        color: $text;
     }
     .block-container {
         padding-top: 1.25rem;
@@ -80,19 +81,19 @@ def apply_theme(mode):
         max-width: 1280px;
     }
     [data-testid="stSidebar"] {
-        background: {colors["sidebar_bg"]};
-        border-right: 1px solid {colors["panel_border"]};
+        background: $sidebar_bg;
+        border-right: 1px solid $panel_border;
     }
     [data-testid="stSidebar"] * {
-        color: {colors["text"]} !important;
+        color: $text !important;
     }
     [data-testid="stSidebar"] a {
-        color: {colors["link"]} !important;
+        color: $link !important;
         text-decoration: none;
         font-weight: 600;
     }
     [data-testid="stSidebar"] a:hover {
-        color: {colors["link_hover"]} !important;
+        color: $link_hover !important;
         text-decoration: underline;
     }
     [data-testid="stSidebar"] [role="radiogroup"] label {
@@ -101,77 +102,78 @@ def apply_theme(mode):
         padding: 0.08rem 0.25rem;
     }
     [data-testid="stSidebar"] [role="radiogroup"] label:hover {
-        background: {colors["hover"]};
+        background: $hover;
     }
     h1, h2, h3 {
-        color: {colors["text"]};
+        color: $text;
     }
     p, li, label, span {
-        color: {colors["text"]};
+        color: $text;
     }
     div[data-testid="stMetric"] {
-        background: {colors["panel_bg"]};
-        border: 1px solid {colors["panel_border"]};
+        background: $panel_bg;
+        border: 1px solid $panel_border;
         border-radius: 8px;
         padding: 14px 16px;
-        box-shadow: 0 1px 2px {colors["shadow"]};
+        box-shadow: 0 1px 2px $shadow;
     }
     div[data-testid="stMetric"] label {
-        color: {colors["subtle"]} !important;
+        color: $subtle !important;
     }
     div[data-testid="stMetric"] [data-testid="stMetricValue"] {
-        color: {colors["text"]};
+        color: $text;
     }
     div[data-testid="stMetric"] [data-testid="stMetricDelta"] {
-        color: {colors["subtle"]};
+        color: $subtle;
     }
     .section-note {
-        color: {colors["muted"]};
+        color: $muted;
         font-size: 0.98rem;
         margin-top: -0.35rem;
         margin-bottom: 1rem;
     }
     .status-pill {
         display: inline-block;
-        border: 1px solid {colors["panel_border"]};
+        border: 1px solid $panel_border;
         border-radius: 999px;
         padding: 0.2rem 0.62rem;
-        color: {colors["text"]};
-        background: {colors["panel_bg"]};
+        color: $text;
+        background: $panel_bg;
         font-size: 0.85rem;
         margin-right: 0.35rem;
         margin-bottom: 0.4rem;
     }
     .stButton > button,
     .stDownloadButton > button {
-        border: 1px solid {colors["panel_border"]};
-        background: {colors["panel_bg"]};
-        color: {colors["text"]};
+        border: 1px solid $panel_border;
+        background: $panel_bg;
+        color: $text;
     }
     .stButton > button:hover,
     .stDownloadButton > button:hover {
-        border-color: {colors["link"]};
-        color: {colors["link_hover"]};
+        border-color: $link;
+        color: $link_hover;
     }
     a {
-        color: {colors["link"]};
+        color: $link;
     }
     [data-testid="stDataFrame"],
     [data-testid="stTable"] {
-        border: 1px solid {colors["panel_border"]};
+        border: 1px solid $panel_border;
         border-radius: 8px;
     }
     [data-testid="stFileUploader"] section {
-        background: {colors["panel_bg"]};
-        border-color: {colors["panel_border"]};
+        background: $panel_bg;
+        border-color: $panel_border;
     }
     [data-testid="stAlert"] {
-        color: {colors["text"]};
+        color: $text;
     }
     </style>
-        """,
-        unsafe_allow_html=True,
-    )
+        """
+    ).substitute(colors)
+
+    st.markdown(css, unsafe_allow_html=True)
 
 
 def read_csv(name):
@@ -231,7 +233,7 @@ def image_path(name):
 def show_figure(name, caption=None):
     path = image_path(name)
     if path:
-        st.image(str(path), caption=caption, use_container_width=True)
+        st.image(str(path), caption=caption, width="stretch")
     else:
         st.info(f"Figure not found: figures/{name}")
 
@@ -254,7 +256,7 @@ def display_dataframe(frame, percent_columns=None):
     for column in percent_columns:
         if column in styled.columns:
             styled[column] = styled[column].map(lambda value: f"{value * 100:.2f}%")
-    st.dataframe(styled, use_container_width=True, hide_index=True)
+    st.dataframe(styled, width="stretch", hide_index=True)
 
 
 def initialize_state(X, dataset_name):
@@ -556,14 +558,14 @@ def render_interactive_lab(tables):
 
         action_cols = st.columns(2)
         with action_cols[0]:
-            if st.button("Inject Noise", use_container_width=True):
+            if st.button("Inject Noise", width="stretch"):
                 inject_noise(noise_level, train_std)
-            if st.button("Create Missing Data", use_container_width=True):
+            if st.button("Create Missing Data", width="stretch"):
                 create_missing_data()
         with action_cols[1]:
-            if st.button("Remove Features", use_container_width=True):
+            if st.button("Remove Features", width="stretch"):
                 remove_features(train_mean)
-            if st.button("Reset", use_container_width=True):
+            if st.button("Reset", width="stretch"):
                 reset_input(X_default)
 
         st.subheader("Applied Conditions")
@@ -606,7 +608,7 @@ def render_interactive_lab(tables):
         )
 
         st.subheader("Current Input")
-        st.dataframe(X_input, use_container_width=True, hide_index=True)
+        st.dataframe(X_input, width="stretch", hide_index=True)
 
         st.subheader("Class Probabilities")
         probability_table = pd.DataFrame(
@@ -651,7 +653,7 @@ def main():
             data=PAPER_PATH.read_bytes(),
             file_name="when-systems-break.pdf",
             mime="application/pdf",
-            use_container_width=True,
+            width="stretch",
         )
     st.sidebar.markdown(f"[Research Paper]({PAPER_URL})")
     st.sidebar.markdown(f"[GitHub]({GITHUB_URL})")
