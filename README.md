@@ -99,7 +99,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Refusal-threshold analysis for safer model behavior
 - Proposed five-component Model Reliability Score across 30 seeded runs
 - Reliability-based model ranking with leader gap and review tiers
-- Streamlit demo for interactively injecting failure conditions
+- Streamlit research dashboard with experiment navigation, metric cards, figures, and an interactive failure lab
 - Research-style paper with generated figures and PDF export
 
 ---
@@ -180,7 +180,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 
 ---
 
-## Interactive Demo
+## Research Dashboard
 
 Run the Streamlit app:
 
@@ -188,11 +188,18 @@ Run the Streamlit app:
 streamlit run app.py
 ```
 
-The demo lets a user upload data, inject noise, remove features, create missing values, and inspect:
+The dashboard includes:
 
-- prediction
-- confidence
-- failure risk
+- Overview
+- Experiments
+- Failure Matrix
+- Calibration
+- Confidence Collapse
+- Distribution Shift
+- Reliability Ranking
+- Interactive Failure Lab
+
+The interactive lab lets a user upload data, inject noise, remove features, create missing values, and inspect prediction, confidence, failure risk, and the model Reliability Index.
 
 ---
 
