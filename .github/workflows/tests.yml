@@ -39,3 +39,6 @@ jobs:
 
       - name: Build cross-experiment reliability index
         run: python experiments/experiment16_reliability_index.py
+
+      - name: Build model ranking
+        run: python experiments/experiment17_model_ranking.py

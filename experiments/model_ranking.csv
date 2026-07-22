@@ -1,0 +1,5 @@
+Rank,Model,Reliability Index,Gap to Leader,Relative Reliability,Tier
+1,SVM,96.2113,0.0,100.0,Leader
+2,Logistic Regression,95.9888,0.2225,99.7687,Leader
+3,Random Forest,94.8212,1.3901,98.5552,Competitive
+4,Decision Tree,89.423,6.7883,92.9444,Needs Review

@@ -20,4 +20,5 @@ The blog series documents the project as a research narrative, moving from simpl
 | 14 | [Beyond accuracy: a reliability score for machine learning](14-model-reliability-score.md) | Composite reliability measurement |
 | 15 | [Does 90% confidence mean 90% correct?](15-confidence-calibration.md) | Confidence calibration and ECE |
 | 16 | [What makes a model reliable?](16-what-makes-a-model-reliable.md) | Cross-experiment Reliability Index |
-| 17 | [When the world changes](17-when-the-world-changes.md) | Distribution shift and drift detection |
+| 17 | [Which model is the most reliable?](17-which-model-is-the-most-reliable.md) | Reliability-based model ranking |
+| 18 | [When the world changes](18-when-the-world-changes.md) | Distribution shift and drift detection |

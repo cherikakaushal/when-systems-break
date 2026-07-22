@@ -4,9 +4,24 @@
 
 [Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
 
-![Model Reliability Index](figures/reliability_index.png)
+![Model Ranking](figures/model_ranking.png)
+
+## Experiment 17 - Model Ranking
+
+Experiment 17 ranks all models using the Reliability Index from Experiment 16. This gives the project a clear answer to the question: which model is strongest overall once accuracy, robustness, calibration, distribution shift, and confidence behavior are considered together?
+
+| Rank | Model | Reliability Index | Gap to Leader | Tier |
+|---:|---|---:|---:|---|
+| 1 | SVM | **96.21** | 0.00 | Leader |
+| 2 | Logistic Regression | **95.99** | 0.22 | Leader |
+| 3 | Random Forest | **94.82** | 1.39 | Competitive |
+| 4 | Decision Tree | **89.42** | 6.79 | Needs Review |
+
+The ranking shows why reliability is more useful than a single clean accuracy score. SVM ranks first overall, Logistic Regression is nearly tied, Random Forest remains competitive, and Decision Tree needs review despite respectable clean-data accuracy.
 
 ## Experiment 16 - Reliability Index
+
+![Model Reliability Index](figures/reliability_index.png)
 
 Reliability is multi-dimensional. Experiment 16 combines accuracy, noise robustness, missing-data performance, calibration, distribution-shift resistance, and confidence behavior into one cross-experiment index.
 
@@ -68,6 +83,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 7. Can multiple reliability signals be combined without hiding their tradeoffs?
 8. Does 90% confidence actually correspond to 90% correctness?
 9. Can a system detect when the deployment distribution has changed?
+10. Which model is most reliable when all reliability dimensions are ranked together?
 
 ---
 
@@ -82,6 +98,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Distribution-shift monitoring with domain-classifier AUC and Population Stability Index
 - Refusal-threshold analysis for safer model behavior
 - Proposed five-component Model Reliability Score across 30 seeded runs
+- Reliability-based model ranking with leader gap and review tiers
 - Streamlit demo for interactively injecting failure conditions
 - Research-style paper with generated figures and PDF export
 
@@ -105,6 +122,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Distribution-shift statistics | [experiments/shift_statistics.csv](experiments/shift_statistics.csv) |
 | Reliability Index figure | [figures/reliability_index.png](figures/reliability_index.png) |
 | Reliability Index CSV | [experiments/reliability_index.csv](experiments/reliability_index.csv) |
+| Model ranking figure | [figures/model_ranking.png](figures/model_ranking.png) |
+| Model ranking CSV | [experiments/model_ranking.csv](experiments/model_ranking.csv) |
 | Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
 | Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
 | Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
@@ -132,6 +151,7 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 14 | Reliability score framework | [experiment14_reliability_score.py](experiments/experiment14_reliability_score.py) | Combine accuracy, robustness, confidence, refusal quality, and variance |
 | 15 | Distribution shift | [experiment15_distribution_shift.py](experiments/experiment15_distribution_shift.py) | Measure performance loss and detect train-to-test covariate shift |
 | 16 | Reliability Index | [experiment16_reliability_index.py](experiments/experiment16_reliability_index.py) | Combine six cross-experiment reliability dimensions into one ranking |
+| 17 | Model ranking | [experiment17_model_ranking.py](experiments/experiment17_model_ranking.py) | Rank all models by Reliability Index with leader gap and tier labels |
 
 ---
 
@@ -155,7 +175,8 @@ The goal is not only to build a model. The goal is to understand how models fail
 | 14 | [Beyond accuracy: a reliability score for machine learning](blogs/14-model-reliability-score.md) |
 | 15 | [Does 90% confidence mean 90% correct?](blogs/15-confidence-calibration.md) |
 | 16 | [What makes a model reliable?](blogs/16-what-makes-a-model-reliable.md) |
-| 17 | [When the world changes](blogs/17-when-the-world-changes.md) |
+| 17 | [Which model is the most reliable?](blogs/17-which-model-is-the-most-reliable.md) |
+| 18 | [When the world changes](blogs/18-when-the-world-changes.md) |
 
 ---
 
@@ -194,6 +215,7 @@ python experiments/experiment13_calibration.py
 python experiments/experiment14_reliability_score.py
 python experiments/experiment15_distribution_shift.py
 python experiments/experiment16_reliability_index.py
+python experiments/experiment17_model_ranking.py
 ```
 
 ---
@@ -232,4 +254,4 @@ when-systems-break/
 
 Machine learning systems often fail gradually before they fail obviously.
 
-By studying noise, missing information, feature degradation, statistical variance, confidence collapse, and refusal thresholds, this project shows why reliability must be measured as a system property rather than reduced to one clean-data score.
+By studying noise, missing information, feature degradation, statistical variance, confidence collapse, refusal thresholds, distribution shift, and reliability ranking, this project shows why reliability must be measured as a system property rather than reduced to one clean-data score.
