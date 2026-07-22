@@ -113,21 +113,21 @@ The goal is not only to build a model. The goal is to understand how models fail
 | Confidence collapse plot | [figures/confidence_collapse.png](figures/confidence_collapse.png) |
 | Accuracy vs coverage plot | [figures/accuracy_vs_coverage.png](figures/accuracy_vs_coverage.png) |
 | Reliability score plot | [figures/reliability_scores.png](figures/reliability_scores.png) |
-| Reliability score CSV | [experiments/reliability_scores.csv](experiments/reliability_scores.csv) |
-| Reliability run-level audit data | [experiments/reliability_run_metrics.csv](experiments/reliability_run_metrics.csv) |
+| Reliability score CSV | [results/reliability_scores.csv](results/reliability_scores.csv) |
+| Reliability run-level audit data | [results/reliability_run_metrics.csv](results/reliability_run_metrics.csv) |
 | Calibration curve | [figures/calibration_curve.png](figures/calibration_curve.png) |
 | Reliability diagram | [figures/reliability_diagram.png](figures/reliability_diagram.png) |
-| Calibration metrics | [experiments/calibration_metrics.csv](experiments/calibration_metrics.csv) |
+| Calibration metrics | [results/calibration_metrics.csv](results/calibration_metrics.csv) |
 | Distribution-shift study | [figures/distribution_shift.png](figures/distribution_shift.png) |
-| Distribution-shift statistics | [experiments/shift_statistics.csv](experiments/shift_statistics.csv) |
+| Distribution-shift statistics | [results/shift_statistics.csv](results/shift_statistics.csv) |
 | Reliability Index figure | [figures/reliability_index.png](figures/reliability_index.png) |
-| Reliability Index CSV | [experiments/reliability_index.csv](experiments/reliability_index.csv) |
+| Reliability Index CSV | [results/reliability_index.csv](results/reliability_index.csv) |
 | Model ranking figure | [figures/model_ranking.png](figures/model_ranking.png) |
-| Model ranking CSV | [experiments/model_ranking.csv](experiments/model_ranking.csv) |
-| Statistical robustness CSV | [experiments/model_statistics.csv](experiments/model_statistics.csv) |
-| Failure matrix CSV | [experiments/failure_matrix.csv](experiments/failure_matrix.csv) |
-| Confidence collapse CSV | [experiments/confidence_collapse.csv](experiments/confidence_collapse.csv) |
-| Refusal statistics CSV | [experiments/refusal_statistics.csv](experiments/refusal_statistics.csv) |
+| Model ranking CSV | [results/model_ranking.csv](results/model_ranking.csv) |
+| Statistical robustness CSV | [results/model_statistics.csv](results/model_statistics.csv) |
+| Failure matrix CSV | [results/failure_matrix.csv](results/failure_matrix.csv) |
+| Confidence collapse CSV | [results/confidence_collapse.csv](results/confidence_collapse.csv) |
+| Refusal statistics CSV | [results/refusal_statistics.csv](results/refusal_statistics.csv) |
 
 ---
 
@@ -240,6 +240,7 @@ when-systems-break/
 |-- experiments/
 |-- figures/
 |-- notebooks/
+|-- results/
 `-- paper/
 ```
 
@@ -254,6 +255,12 @@ when-systems-break/
 - Matplotlib
 - Seaborn
 - Streamlit
+
+---
+
+## Citation
+
+Citation metadata is available in [CITATION.cff](CITATION.cff). GitHub will show a **Cite this repository** button from this file.
 
 ---
 

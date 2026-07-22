@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -12,12 +10,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-OUTPUT_CSV = EXPERIMENT_DIR / "confidence_collapse.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "confidence_collapse.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "confidence_collapse.png"
+OUTPUT_CSV = result_path("confidence_collapse.csv")
+OUTPUT_FIGURE = "confidence_collapse.png"
 
 SEED = 42
 NOISE_LEVELS = np.linspace(0, 1.0, 11)
@@ -116,16 +112,12 @@ def main():
     ax1.legend(lines + bars, labels + bar_labels, loc="lower left")
 
     fig.tight_layout()
-    OUTPUT_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    ROOT_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUTPUT_FIGURE, dpi=200)
-    fig.savefig(ROOT_FIGURE, dpi=200)
+    saved_figure = save_figure(fig, OUTPUT_FIGURE, dpi=200)
 
     print("\nConfidence collapse results:\n")
     print(results.to_string(index=False))
     print(f"\nSaved results to {OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
-    print(f"Saved figure copy to {ROOT_FIGURE}")
+    print(f"Saved figure to {saved_figure}")
 
 
 if __name__ == "__main__":

@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 
 matplotlib.use("Agg")
@@ -7,18 +5,15 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import seaborn as sns
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-OUTPUT_CSV = EXPERIMENT_DIR / "reliability_index.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "reliability_index.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "reliability_index.png"
-PAPER_FIGURE = ROOT_DIR / "paper" / "figures" / "reliability_index.png"
+OUTPUT_CSV = result_path("reliability_index.csv")
+OUTPUT_FIGURE = "reliability_index.png"
 
-MODEL_STATISTICS = EXPERIMENT_DIR / "model_statistics.csv"
-FAILURE_MATRIX = EXPERIMENT_DIR / "failure_matrix.csv"
-CALIBRATION_METRICS = EXPERIMENT_DIR / "calibration_metrics.csv"
-SHIFT_STATISTICS = EXPERIMENT_DIR / "shift_statistics.csv"
+MODEL_STATISTICS = result_path("model_statistics.csv")
+FAILURE_MATRIX = result_path("failure_matrix.csv")
+CALIBRATION_METRICS = result_path("calibration_metrics.csv")
+SHIFT_STATISTICS = result_path("shift_statistics.csv")
 
 WEIGHTS = {
     "Accuracy Score": 0.25,
@@ -181,9 +176,7 @@ def draw_figure(results):
     )
     fig.tight_layout(rect=(0, 0, 1, 0.89))
 
-    for path in [OUTPUT_FIGURE, ROOT_FIGURE, PAPER_FIGURE]:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(path, dpi=220, bbox_inches="tight")
+    save_figure(fig, OUTPUT_FIGURE, dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -196,7 +189,7 @@ def main():
     print("\nModel Reliability Index (0-100):\n")
     print(results.round(2).to_string(index=False))
     print(f"\nSaved index to {OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
+    print(f"Saved figure to figures/{OUTPUT_FIGURE}")
 
 
 if __name__ == "__main__":

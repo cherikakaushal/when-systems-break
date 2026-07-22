@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+from paths import save_figure
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -45,5 +46,5 @@ plt.bar(labels, values)
 plt.title("Effect of Noise on Model Accuracy")
 plt.ylabel("Accuracy")
 plt.ylim(0, 1)
-plt.savefig("experiments/result.png")
+save_figure(plt.gcf(), "result.png")
 plt.show()

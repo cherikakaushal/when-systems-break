@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from paths import save_figure
 
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
@@ -45,5 +46,5 @@ plt.xlabel("Noise Level")
 plt.ylabel("Accuracy")
 plt.grid()
 
-plt.savefig("experiments/noise_curve.png")
+save_figure(plt.gcf(), "noise_curve.png")
 plt.show()

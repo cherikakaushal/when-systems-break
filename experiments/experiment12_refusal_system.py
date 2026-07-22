@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -12,12 +10,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.pipeline import make_pipeline
 from sklearn.preprocessing import StandardScaler
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-OUTPUT_CSV = EXPERIMENT_DIR / "refusal_statistics.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "accuracy_vs_coverage.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "accuracy_vs_coverage.png"
+OUTPUT_CSV = result_path("refusal_statistics.csv")
+OUTPUT_FIGURE = "accuracy_vs_coverage.png"
 
 SEED = 42
 NOISE_LEVEL = 0.8
@@ -109,10 +105,7 @@ def main():
     ax.grid(True, alpha=0.3)
     fig.tight_layout()
 
-    OUTPUT_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    ROOT_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    fig.savefig(OUTPUT_FIGURE, dpi=200)
-    fig.savefig(ROOT_FIGURE, dpi=200)
+    saved_figure = save_figure(fig, OUTPUT_FIGURE, dpi=200)
 
     display = results.copy()
     for column in ["Coverage", "Accuracy", "Refusal Rate"]:
@@ -121,8 +114,7 @@ def main():
     print("\nRefusal threshold results:\n")
     print(display.to_string(index=False))
     print(f"\nSaved results to {OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
-    print(f"Saved figure copy to {ROOT_FIGURE}")
+    print(f"Saved figure to {saved_figure}")
 
 
 if __name__ == "__main__":

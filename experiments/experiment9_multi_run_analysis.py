@@ -2,6 +2,7 @@ from pathlib import Path
 
 import numpy as np
 import pandas as pd
+from paths import result_path
 from sklearn.datasets import load_breast_cancer
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.linear_model import LogisticRegression
@@ -13,7 +14,7 @@ from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
 
-OUTPUT_PATH = Path(__file__).resolve().parent / "model_statistics.csv"
+OUTPUT_PATH = result_path("model_statistics.csv")
 N_RUNS = 30
 NOISE_LEVEL = 0.2
 

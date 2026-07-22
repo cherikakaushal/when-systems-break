@@ -32,7 +32,7 @@ Models can tolerate small imperfections, but performance degrades beyond a thres
 
 ## Visualization
 
-![Noise Curve](../experiments/noise_curve.png)
+![Noise Curve](../figures/noise_curve.png)
 
 ---
 

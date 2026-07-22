@@ -1,6 +1,7 @@
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
+from paths import save_figure
 from sklearn.datasets import load_breast_cancer
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
@@ -47,5 +48,5 @@ plt.title("Top 10 Most Important Features")
 plt.gca().invert_yaxis()
 
 # Save image
-plt.savefig("experiments/feature_importance.png")
+save_figure(plt.gcf(), "feature_importance.png")
 plt.show()

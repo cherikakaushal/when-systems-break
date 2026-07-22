@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 
 matplotlib.use("Agg")
@@ -15,13 +13,12 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-METRICS_CSV = EXPERIMENT_DIR / "calibration_metrics.csv"
-BINS_CSV = EXPERIMENT_DIR / "calibration_bins.csv"
-CURVE_FIGURE = EXPERIMENT_DIR / "calibration_curve.png"
-DIAGRAM_FIGURE = EXPERIMENT_DIR / "reliability_diagram.png"
+METRICS_CSV = result_path("calibration_metrics.csv")
+BINS_CSV = result_path("calibration_bins.csv")
+CURVE_FIGURE = "calibration_curve.png"
+DIAGRAM_FIGURE = "reliability_diagram.png"
 
 N_RUNS = 30
 N_BINS = 10
@@ -217,7 +214,7 @@ def draw_calibration_curve(bins):
     axes[1].legend(loc="lower right", fontsize=8)
     fig.suptitle("Calibration Curves Across Models", fontsize=16, fontweight="bold")
     fig.tight_layout(rect=(0, 0, 1, 0.94))
-    save_figure(fig, CURVE_FIGURE, "calibration_curve.png")
+    save_figure(fig, CURVE_FIGURE, dpi=220, bbox_inches="tight")
 
 
 def draw_reliability_diagram(metrics, bins):
@@ -261,19 +258,7 @@ def draw_reliability_diagram(metrics, bins):
         fontweight="bold",
     )
     fig.tight_layout(rect=(0, 0, 1, 0.95))
-    save_figure(fig, DIAGRAM_FIGURE, "reliability_diagram.png")
-
-
-def save_figure(fig, experiment_path, filename):
-    destinations = [
-        experiment_path,
-        ROOT_DIR / "figures" / filename,
-        ROOT_DIR / "paper" / "figures" / filename,
-    ]
-    for destination in destinations:
-        destination.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(destination, dpi=220, bbox_inches="tight")
-    plt.close(fig)
+    save_figure(fig, DIAGRAM_FIGURE, dpi=220, bbox_inches="tight")
 
 
 def main():

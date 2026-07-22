@@ -11,7 +11,7 @@ from sklearn.preprocessing import StandardScaler
 
 
 ROOT = Path(__file__).resolve().parent
-EXPERIMENTS_DIR = ROOT / "experiments"
+RESULTS_DIR = ROOT / "results"
 FIGURES_DIR = ROOT / "figures"
 PAPER_PATH = ROOT / "paper" / "when-systems-break.pdf"
 GITHUB_BASE_URL = "https://github.com/cherikakaushal/when-systems-break"
@@ -121,7 +121,7 @@ st.markdown(
 
 
 def read_csv(name):
-    path = EXPERIMENTS_DIR / name
+    path = RESULTS_DIR / name
     if not path.exists():
         st.warning(f"Missing expected result file: {path}")
         return pd.DataFrame()

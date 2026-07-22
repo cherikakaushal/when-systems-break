@@ -1,0 +1,18 @@
+cff-version: 1.2.0
+message: "If you use this project, please cite it using the metadata below."
+title: "When Systems Break: Understanding Model Failure Under Noise, Missing Data, Feature Degradation, and Refusal Thresholds"
+type: software
+authors:
+  - given-names: "Cherika"
+    family-names: "Kaushal"
+repository-code: "https://github.com/cherikakaushal/when-systems-break"
+url: "https://github.com/cherikakaushal/when-systems-break"
+version: "1.0.0"
+date-released: "2026-07-22"
+keywords:
+  - machine-learning
+  - model-reliability
+  - robustness
+  - calibration
+  - distribution-shift
+  - refusal-systems

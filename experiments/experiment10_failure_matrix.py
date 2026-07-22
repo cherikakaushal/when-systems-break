@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
@@ -16,12 +14,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-MATRIX_CSV = EXPERIMENT_DIR / "failure_matrix.csv"
-MATRIX_FIGURE = EXPERIMENT_DIR / "failure_matrix.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "failure_matrix.png"
+MATRIX_CSV = result_path("failure_matrix.csv")
+MATRIX_FIGURE = "failure_matrix.png"
 
 NOISE_LEVEL = 0.35
 MISSING_RATIO = 0.25
@@ -130,16 +126,12 @@ def main():
     plt.ylabel("Model")
     plt.tight_layout()
 
-    MATRIX_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    ROOT_FIGURE.parent.mkdir(parents=True, exist_ok=True)
-    plt.savefig(MATRIX_FIGURE, dpi=200)
-    plt.savefig(ROOT_FIGURE, dpi=200)
+    saved_figure = save_figure(plt.gcf(), MATRIX_FIGURE, dpi=200)
 
     print("\nFailure matrix (% accuracy):\n")
     print(matrix)
     print(f"\nSaved matrix to {MATRIX_CSV}")
-    print(f"Saved heatmap to {MATRIX_FIGURE}")
-    print(f"Saved hero image to {ROOT_FIGURE}")
+    print(f"Saved heatmap to {saved_figure}")
     print(f"\nRemoved features: {', '.join(removed_features)}")
 
 

@@ -1,20 +1,14 @@
-from pathlib import Path
-
 import matplotlib
 
 matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import pandas as pd
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-
-INPUT_CSV = EXPERIMENT_DIR / "reliability_index.csv"
-OUTPUT_CSV = EXPERIMENT_DIR / "model_ranking.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "model_ranking.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "model_ranking.png"
-PAPER_FIGURE = ROOT_DIR / "paper" / "figures" / "model_ranking.png"
+INPUT_CSV = result_path("reliability_index.csv")
+OUTPUT_CSV = result_path("model_ranking.csv")
+OUTPUT_FIGURE = "model_ranking.png"
 
 COLORS = ["#176B5B", "#287E9B", "#D79A28", "#B84A5F"]
 
@@ -113,9 +107,7 @@ def draw_figure(ranking):
     ax.tick_params(axis="y", length=0)
 
     fig.tight_layout()
-    for path in [OUTPUT_FIGURE, ROOT_FIGURE, PAPER_FIGURE]:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(path, dpi=220, bbox_inches="tight")
+    save_figure(fig, OUTPUT_FIGURE, dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -128,7 +120,7 @@ def main():
     print("\nModel Ranking by Reliability Index:\n")
     print(ranking.round(2).to_string(index=False))
     print(f"\nSaved ranking to {OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
+    print(f"Saved figure to figures/{OUTPUT_FIGURE}")
 
 
 if __name__ == "__main__":

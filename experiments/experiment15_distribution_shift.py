@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 
 matplotlib.use("Agg")
@@ -16,13 +14,10 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-OUTPUT_CSV = EXPERIMENT_DIR / "shift_statistics.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "distribution_shift.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "distribution_shift.png"
-PAPER_FIGURE = ROOT_DIR / "paper" / "figures" / "distribution_shift.png"
+OUTPUT_CSV = result_path("shift_statistics.csv")
+OUTPUT_FIGURE = "distribution_shift.png"
 
 N_RUNS = 30
 SHIFT_LEVELS = np.linspace(0.0, 0.5, 6)
@@ -290,9 +285,7 @@ def draw_figure(summary):
     )
     fig.tight_layout(rect=(0, 0, 1, 0.92))
 
-    for path in [OUTPUT_FIGURE, ROOT_FIGURE, PAPER_FIGURE]:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(path, dpi=220, bbox_inches="tight")
+    save_figure(fig, OUTPUT_FIGURE, dpi=220, bbox_inches="tight")
     plt.close(fig)
 
 
@@ -319,7 +312,7 @@ def main():
         ].to_string(index=False)
     )
     print(f"\nSaved statistics to {OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
+    print(f"Saved figure to figures/{OUTPUT_FIGURE}")
 
 
 if __name__ == "__main__":

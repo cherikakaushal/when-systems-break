@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt
+from paths import save_figure
 
 conditions = [
     "Clean",
@@ -31,5 +32,5 @@ plt.ylabel("Accuracy")
 
 plt.grid(True)
 
-plt.savefig("experiments/failure_comparison.png")
+save_figure(plt.gcf(), "failure_comparison.png")
 plt.show()

@@ -1,5 +1,3 @@
-from pathlib import Path
-
 import matplotlib
 
 matplotlib.use("Agg")
@@ -16,14 +14,11 @@ from sklearn.preprocessing import StandardScaler
 from sklearn.svm import SVC
 from sklearn.tree import DecisionTreeClassifier
 
+from paths import result_path, save_figure
 
-EXPERIMENT_DIR = Path(__file__).resolve().parent
-ROOT_DIR = EXPERIMENT_DIR.parent
-OUTPUT_CSV = EXPERIMENT_DIR / "reliability_scores.csv"
-RUN_OUTPUT_CSV = EXPERIMENT_DIR / "reliability_run_metrics.csv"
-OUTPUT_FIGURE = EXPERIMENT_DIR / "reliability_scores.png"
-ROOT_FIGURE = ROOT_DIR / "figures" / "reliability_scores.png"
-PAPER_FIGURE = ROOT_DIR / "paper" / "figures" / "reliability_scores.png"
+OUTPUT_CSV = result_path("reliability_scores.csv")
+RUN_OUTPUT_CSV = result_path("reliability_run_metrics.csv")
+OUTPUT_FIGURE = "reliability_scores.png"
 
 N_RUNS = 30
 NOISE_LEVEL = 0.35
@@ -263,9 +258,7 @@ def main():
     ax.tick_params(axis="y", length=0)
     fig.subplots_adjust(left=0.16, right=0.95, bottom=0.14, top=0.82)
 
-    for path in [OUTPUT_FIGURE, ROOT_FIGURE, PAPER_FIGURE]:
-        path.parent.mkdir(parents=True, exist_ok=True)
-        fig.savefig(path, dpi=220, bbox_inches="tight")
+    saved_figure = save_figure(fig, OUTPUT_FIGURE, dpi=220, bbox_inches="tight")
 
     display_columns = [
         "Model",
@@ -280,7 +273,7 @@ def main():
     print(scores[display_columns].to_string(index=False))
     print(f"\nSaved scores to {OUTPUT_CSV}")
     print(f"Saved run-level metrics to {RUN_OUTPUT_CSV}")
-    print(f"Saved figure to {OUTPUT_FIGURE}")
+    print(f"Saved figure to {saved_figure}")
 
 
 if __name__ == "__main__":
