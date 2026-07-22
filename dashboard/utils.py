@@ -23,9 +23,13 @@ BADGES = [
 
 NAVIGATION = {
     "Research": [
+        "Landing",
         "Overview",
         "Experiments",
+        "Dataset Explorer",
         "Interactive Lab",
+        "Research Progress",
+        "About",
     ],
     "Analysis": [
         "Failure Matrix",
@@ -33,18 +37,28 @@ NAVIGATION = {
         "Confidence Collapse",
         "Distribution Shift",
         "Reliability Ranking",
+        "Model Explorer",
+    ],
+    "Resources": [
+        "Downloads",
     ],
 }
 
 PAGE_ICONS = {
+    "Landing": "H",
     "Overview": "O",
     "Experiments": "E",
+    "Dataset Explorer": "D",
     "Interactive Lab": "L",
+    "Research Progress": "P",
+    "About": "A",
     "Failure Matrix": "M",
     "Calibration": "C",
     "Confidence Collapse": "X",
     "Distribution Shift": "S",
     "Reliability Ranking": "R",
+    "Model Explorer": "V",
+    "Downloads": "Z",
 }
 
 
@@ -58,4 +72,3 @@ def display_page_name(label):
 
 def strip_page_icon(label):
     return label.split("  ", 1)[-1]
-

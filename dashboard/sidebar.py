@@ -28,7 +28,7 @@ def render_sidebar():
     )
 
     st.sidebar.divider()
-    st.sidebar.markdown("**Resources**")
+    st.sidebar.markdown("**Quick Links**")
     download_file(PAPER_PATH, "Download Research Paper", "application/pdf")
     st.sidebar.markdown(f"[Paper]({PAPER_URL})")
     st.sidebar.markdown(f"[README]({README_URL})")
@@ -36,4 +36,3 @@ def render_sidebar():
     st.sidebar.markdown(f"[Experiments]({EXPERIMENTS_URL})")
 
     return strip_page_icon(selected)
-

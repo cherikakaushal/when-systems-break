@@ -190,13 +190,19 @@ streamlit run app.py
 
 The dashboard includes:
 
+- Landing page
 - Overview
 - Experiments
+- Dataset Explorer
 - Failure Matrix
 - Calibration
 - Confidence Collapse
 - Distribution Shift
 - Reliability Ranking
+- Model Explorer
+- Research Progress
+- About the Research
+- Downloads
 - Interactive Failure Lab
 
 The interactive lab lets a user upload data, inject noise, remove features, create missing values, and inspect prediction, confidence, failure risk, and the model Reliability Index.

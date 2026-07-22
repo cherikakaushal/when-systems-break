@@ -23,6 +23,21 @@ def header():
     )
 
 
+def landing_hero():
+    st.markdown(
+        """
+        <div class="wsb-hero">
+            <div class="wsb-eyebrow">Machine Learning Reliability Laboratory</div>
+            <h1 style="margin: 0;">When Systems Break</h1>
+            <div class="wsb-subtitle">
+                A General Framework for Studying Machine Learning Reliability Under Imperfect Data
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 def section(title, note=None):
     st.header(title)
     if note:
@@ -57,4 +72,3 @@ def download_file(path, label, mime):
             mime=mime,
             width="stretch",
         )
-

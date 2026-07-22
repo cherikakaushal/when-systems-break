@@ -63,3 +63,19 @@ def radar_chart(index):
     ax.legend(loc="upper right", bbox_to_anchor=(1.28, 1.12), fontsize=8)
     st.pyplot(fig, clear_figure=True)
 
+
+def correlation_heatmap(frame, title="Correlation Matrix"):
+    if frame.empty:
+        st.info("No dataset loaded.")
+        return
+    corr = frame.corr(numeric_only=True)
+    fig, ax = plt.subplots(figsize=(8, 6))
+    image = ax.imshow(corr, cmap="RdBu_r", vmin=-1, vmax=1)
+    ax.set_title(title, fontweight="bold", pad=12)
+    ax.set_xticks(range(len(corr.columns)))
+    ax.set_yticks(range(len(corr.columns)))
+    ax.set_xticklabels(corr.columns, rotation=90, fontsize=7)
+    ax.set_yticklabels(corr.columns, fontsize=7)
+    fig.colorbar(image, ax=ax, fraction=0.046, pad=0.04)
+    fig.tight_layout()
+    st.pyplot(fig, clear_figure=True)

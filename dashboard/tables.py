@@ -25,8 +25,11 @@ def csv_download(frame, filename, label="Download CSV"):
     )
 
 
+def dataframe_to_csv_bytes(frame):
+    return frame.to_csv(index=False).encode("utf-8")
+
+
 def model_table_from_failure(frame):
     if frame.empty:
         return frame
     return frame.round(2)
-

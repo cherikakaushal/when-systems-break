@@ -47,6 +47,26 @@ EXPERIMENTS = [
     (17, "Model Ranking", "Rank all models by Reliability Index."),
 ]
 
+EXPERIMENT_DETAILS = {
+    1: ("Inject Gaussian noise into a trained baseline model.", "Accuracy drops once input quality degrades."),
+    2: ("Simulate missing inputs and evaluate prediction behavior.", "Missingness can remove signal rather than merely distort it."),
+    3: ("Inspect model coefficients to identify influential features.", "A small subset of features carries disproportionate predictive weight."),
+    4: ("Compare model families under shared evaluation conditions.", "Algorithms fail differently under the same degradation."),
+    5: ("Remove important features and retrain/evaluate models.", "Feature loss is most harmful when high-signal inputs disappear."),
+    6: ("Evaluate accuracy across a controlled noise curve.", "Failure is gradual before it becomes obvious."),
+    7: ("Inspect degradation thresholds under increasing perturbation.", "Reliability thresholds are easier to see across multiple noise levels."),
+    8: ("Compare multiple degradation types in one failure pattern.", "Combined degradation produces the sharpest failure profile."),
+    9: ("Repeat model evaluation across 30 random seeds.", "One accuracy score hides variance and repeatability risk."),
+    10: ("Create a model-by-condition heatmap.", "SVM and Logistic Regression remain strong across several degradation conditions."),
+    11: ("Track confidence and wrong predictions as noise rises.", "Wrong predictions can increase while confidence remains high."),
+    12: ("Apply confidence thresholds and measure coverage.", "Refusal improves accepted-prediction accuracy at the cost of coverage."),
+    13: ("Compare predicted confidence with observed correctness.", "High confidence is not automatically calibrated confidence."),
+    14: ("Combine five reliability components into one score.", "Composite scores are useful only when components remain visible."),
+    15: ("Shift the test distribution and monitor accuracy/drift.", "Distribution shift is detectable before confidence always reflects risk."),
+    16: ("Synthesize six cross-experiment reliability dimensions.", "Reliability is multi-dimensional, not just accuracy."),
+    17: ("Rank models using the Reliability Index.", "SVM ranks first overall, with Logistic Regression close behind."),
+}
+
 
 @st.cache_data
 def read_csv(name):
