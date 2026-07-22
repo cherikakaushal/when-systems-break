@@ -4,34 +4,35 @@ from .utils import BADGES
 
 
 def header():
-    st.markdown(
-        """
-        <div class="wsb-hero">
-            <div class="wsb-eyebrow">Research Dashboard</div>
-            <h1 style="margin: 0;">When Systems Break</h1>
-            <div class="wsb-subtitle">
-                General Framework for Machine Learning Reliability Research
-            </div>
-            <div style="margin-top: 16px;">
-        """
-        + "".join(f'<span class="wsb-pill">{badge}</span>' for badge in BADGES)
-        + """
-            </div>
-        </div>
-        """,
-        unsafe_allow_html=True,
-    )
+    """Render the shared top hero used across dashboard pages."""
+    hero("Research Dashboard", "When Systems Break", "General Framework for Machine Learning Reliability Research", BADGES)
 
 
 def landing_hero():
+    """Render the landing page hero."""
+    hero(
+        "Machine Learning Reliability Laboratory",
+        "When Systems Break",
+        "A General Framework for Studying Machine Learning Reliability Under Imperfect Data",
+    )
+
+
+def hero(eyebrow, title, subtitle, badges=None):
+    """Render a reusable hero with optional research badges."""
+    badge_markup = ""
+    if badges:
+        badge_markup = (
+            '<div class="wsb-badge-row">'
+            + "".join(f'<span class="wsb-pill">{badge}</span>' for badge in badges)
+            + "</div>"
+        )
     st.markdown(
-        """
+        f"""
         <div class="wsb-hero">
-            <div class="wsb-eyebrow">Machine Learning Reliability Laboratory</div>
-            <h1 style="margin: 0;">When Systems Break</h1>
-            <div class="wsb-subtitle">
-                A General Framework for Studying Machine Learning Reliability Under Imperfect Data
-            </div>
+            <div class="wsb-eyebrow">{eyebrow}</div>
+            <h1 class="wsb-title-reset">{title}</h1>
+            <div class="wsb-subtitle">{subtitle}</div>
+            {badge_markup}
         </div>
         """,
         unsafe_allow_html=True,
@@ -39,17 +40,19 @@ def landing_hero():
 
 
 def section(title, note=None):
+    """Render a consistent section heading and optional explanatory note."""
     st.header(title)
     if note:
         st.markdown(f'<div class="wsb-note">{note}</div>', unsafe_allow_html=True)
 
 
 def card(title, body):
+    """Render a themed card."""
     st.markdown(
         f"""
         <div class="wsb-card">
-            <strong>{title}</strong>
-            <p class="wsb-muted" style="margin-bottom: 0;">{body}</p>
+            <div class="wsb-card-title">{title}</div>
+            <div class="wsb-card-body">{body}</div>
         </div>
         """,
         unsafe_allow_html=True,
@@ -57,6 +60,7 @@ def card(title, body):
 
 
 def step(label, title):
+    """Render a workflow step label and title."""
     st.markdown(
         f'<div class="wsb-step">{label}</div><strong>{title}</strong>',
         unsafe_allow_html=True,
@@ -64,6 +68,7 @@ def step(label, title):
 
 
 def download_file(path, label, mime):
+    """Render a full-width download button if the file exists."""
     if path.exists():
         st.download_button(
             label,

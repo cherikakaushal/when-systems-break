@@ -6,14 +6,12 @@ from .utils import EXPERIMENTS_URL, GITHUB_BASE_URL, NAVIGATION, PAPER_PATH, PAP
 
 
 def render_sidebar():
+    """Render grouped navigation and global theme toggle."""
     st.sidebar.title("When Systems Break")
     st.sidebar.caption("Machine Learning Reliability Laboratory")
 
-    appearance = st.sidebar.segmented_control(
-        "Appearance",
-        ["Dark", "Light"],
-        default="Dark",
-    )
+    appearance = st.sidebar.toggle("Light mode", value=False)
+    appearance = "Light" if appearance else "Dark"
     apply_theme(appearance)
 
     options = []

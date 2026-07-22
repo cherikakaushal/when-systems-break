@@ -3,6 +3,7 @@ import streamlit as st
 
 
 def display_table(frame, percent_columns=None, height=None):
+    """Render a responsive themed dataframe with optional percentage formatting."""
     if frame is None or frame.empty:
         st.info("No table data available.")
         return
@@ -14,6 +15,7 @@ def display_table(frame, percent_columns=None, height=None):
 
 
 def csv_download(frame, filename, label="Download CSV"):
+    """Render a CSV download button for a dataframe."""
     if frame is None or frame.empty:
         return
     st.download_button(
@@ -26,6 +28,7 @@ def csv_download(frame, filename, label="Download CSV"):
 
 
 def dataframe_to_csv_bytes(frame):
+    """Serialize a dataframe to UTF-8 CSV bytes."""
     return frame.to_csv(index=False).encode("utf-8")
 
 

@@ -8,7 +8,7 @@ import pandas as pd
 import streamlit as st
 from matplotlib.backends.backend_pdf import PdfPages
 
-from .charts import correlation_heatmap, meter, probability_chart, radar_chart, show_figure
+from .charts import bar_chart, correlation_heatmap, meter, probability_chart, radar_chart, show_figure
 from .components import card, landing_hero, section, step
 from .loader import DATASET_OPTIONS, DATASETS, EXPERIMENT_DETAILS, csv_outputs, experiment_catalog, figure_outputs, load_dataset, load_tables, train_model
 from .metrics import confidence_meter_label, estimate_failure_risk, latest_findings, reliability_label, repository_stats
@@ -71,12 +71,13 @@ def render_landing():
             card(f"RQ{idx}", question)
 
     st.subheader("Methodology")
-    st.markdown(
-        "<div class='wsb-card' style='text-align:center; font-weight:700;'>"
-        + " &rarr; ".join(TIMELINE)
-        + "</div>",
-        unsafe_allow_html=True,
-    )
+    timeline_markup = '<div class="wsb-timeline">'
+    for idx, item in enumerate(TIMELINE):
+        timeline_markup += f'<span class="wsb-timeline-item">{item}</span>'
+        if idx < len(TIMELINE) - 1:
+            timeline_markup += '<span class="wsb-timeline-arrow">&rarr;</span>'
+    timeline_markup += "</div>"
+    st.markdown(timeline_markup, unsafe_allow_html=True)
 
     st.subheader("Featured Results")
     leader = ranking.iloc[0] if not ranking.empty else None
@@ -289,7 +290,7 @@ def render_confidence_collapse():
         worst = confidence.sort_values("Wrong Predictions", ascending=False).head(5)
         display_table(worst, height=220)
         st.subheader("Confidence Histogram")
-        st.bar_chart(confidence, x="Noise Level", y="Mean Prediction Confidence")
+        bar_chart(confidence, "Noise Level", "Mean Prediction Confidence", "Confidence Across Noise Levels")
     card(
         "Failure Explanation",
         "Confidence can remain high even as wrong predictions increase. That gap is why confidence needs calibration, refusal thresholds, and degradation testing.",
@@ -423,7 +424,7 @@ def render_dataset_explorer():
     st.subheader("Class Distribution")
     class_counts = pd.Series(y).map(lambda idx: target_names[idx]).value_counts().reset_index()
     class_counts.columns = ["Class", "Count"]
-    st.bar_chart(class_counts, x="Class", y="Count")
+    bar_chart(class_counts, "Class", "Count", "Class Distribution")
 
     st.subheader("Feature Statistics")
     display_table(X.describe().T.reset_index().rename(columns={"index": "Feature"}).round(3), height=360)
@@ -484,7 +485,7 @@ def render_model_explorer():
                 ],
             }
         )
-        st.bar_chart(component_frame, x="Metric", y="Score")
+        bar_chart(component_frame, "Metric", "Score", "Reliability Component Scores")
         display_table(component_frame.round(2), height=250)
 
     st.subheader("Supporting Evidence")
