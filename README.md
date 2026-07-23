@@ -1,8 +1,20 @@
 # When Systems Break
 
-**An experimental framework for measuring machine learning reliability under noise, missing data, feature degradation, distribution shift, confidence collapse, and refusal-based decision-making.**
+**A research framework for evaluating machine learning reliability under imperfect real-world data conditions.**
 
-[Research Report](paper/when-systems-break.pdf) | [Interactive Demo](app.py) | [Experiments](experiments) | [Blogs](blogs)
+[Research Report](paper/when-systems-break.pdf) | [Dashboard](app.py) | [Experiments](experiments) | [Results](results) | [Blogs](blogs)
+
+## Project Overview
+
+Machine learning models are often reported using a single clean-data accuracy score. That number is useful, but it does not explain how a model behaves when real-world conditions become messy.
+
+**When Systems Break** studies model reliability under noise, missing values, feature degradation, distribution shift, confidence collapse, calibration error, and refusal-based decision-making. The project combines reproducible experiments, generated figures, CSV outputs, a research paper, and a Streamlit dashboard into one reliability-analysis workflow.
+
+The central question is simple:
+
+> Which models continue to behave reliably when the assumptions behind the data begin to fail?
+
+This repository is intended to read like a compact research platform rather than a one-off model demo. It keeps experiment scripts, results, figures, documentation, and dashboard code separated so the project can continue growing cleanly.
 
 ![Model Ranking](figures/model_ranking.png)
 
@@ -101,6 +113,34 @@ The goal is not only to build a model. The goal is to understand how models fail
 - Reliability-based model ranking with leader gap and review tiers
 - Streamlit research dashboard with experiment navigation, metric cards, figures, and an interactive failure lab
 - Research-style paper with generated figures and PDF export
+
+---
+
+## Project Structure
+
+```text
+when-systems-break/
+|-- app.py                  # Streamlit entry point
+|-- dashboard/              # Modular dashboard UI, theme, pages, charts, and loaders
+|-- experiments/            # Reproducible experiment scripts
+|-- results/                # Generated CSV outputs
+|-- figures/                # Generated plots and dashboard figures
+|-- paper/                  # Research report source, figures, and PDF
+|-- blogs/                  # Research notes and experiment writeups
+|-- data/                   # Dataset workspace
+|-- docs/                   # Additional documentation
+|-- notebooks/              # Notebook workspace
+|-- CITATION.cff            # GitHub citation metadata
+|-- requirements.txt        # Python dependencies
+`-- README.md
+```
+
+The repository separates source code from generated artifacts:
+
+- Experiment scripts write CSV outputs to `results/`.
+- Experiment scripts write plots to `figures/`.
+- Paper-specific figures live in `paper/figures/`.
+- Dashboard code lives in `dashboard/`, with `app.py` kept as a small launcher.
 
 ---
 
@@ -233,26 +273,6 @@ python experiments/experiment17_model_ranking.py
 
 ---
 
-## Repository Structure
-
-```text
-when-systems-break/
-|-- app.py
-|-- README.md
-|-- requirements.txt
-|-- blogs/
-|-- data/
-|-- dashboard/
-|-- docs/
-|-- experiments/
-|-- figures/
-|-- notebooks/
-|-- results/
-`-- paper/
-```
-
----
-
 ## Tech Stack
 
 - Python
@@ -262,6 +282,22 @@ when-systems-break/
 - Matplotlib
 - Seaborn
 - Streamlit
+
+---
+
+## Future Work
+
+Planned extensions include:
+
+- Add additional datasets such as Heart Disease, Titanic, Diabetes, and custom CSV workflows
+- Add SHAP-based explainability for feature-level reliability analysis
+- Expand distribution-shift experiments beyond controlled affine shifts
+- Add adversarial perturbation and semantic noise experiments
+- Add calibration methods such as temperature scaling, isotonic regression, and Platt scaling
+- Add model cards and dataset cards for stronger documentation
+- Add automated report generation from selected experiment outputs
+- Add deployment-ready dashboard configuration and environment documentation
+- Validate the reliability framework across larger external datasets
 
 ---
 
