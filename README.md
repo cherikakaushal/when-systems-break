@@ -313,4 +313,9 @@ Machine learning systems often fail gradually before they fail obviously.
 
 By studying noise, missing information, feature degradation, statistical variance, confidence collapse, refusal thresholds, distribution shift, and reliability ranking, this project shows why reliability must be measured as a system property rather than reduced to one clean-data score.
 
+## Roadmap
 
+- [ ] Improve documentation
+- [ ] Add more experiments
+- [ ] Benchmark different models
+- [ ] Publish results
